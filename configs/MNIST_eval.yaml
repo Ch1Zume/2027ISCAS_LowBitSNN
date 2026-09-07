@@ -1,0 +1,19 @@
+model: MNIST
+eval: true
+resume: ckpt/MNIST/MNIST_T100_b64_adam_lr0.001_amp_qactivation_4bit/checkpoint_max.pth
+
+T: 100
+device: cuda:1
+b: 64
+num_workers: 8
+data_dir: /work/datasets
+
+amp: true
+cupy: false
+
+tau: 2.0
+seed: 42
+
+quant: true
+quant_bits: 4
+quant_target: activation

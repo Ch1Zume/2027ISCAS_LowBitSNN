@@ -1,0 +1,22 @@
+model: MNIST
+train: true
+
+T: 100
+device: cuda:1
+b: 64
+epochs: 50
+lr: 0.001
+opt: adam
+num_workers: 8
+data_dir: /work/datasets
+out_dir: ./ckpt/MNIST
+
+amp: true
+cupy: false
+
+tau: 2.0
+seed: 42
+
+quant: True
+quant_bits: 4
+quant_target: activation

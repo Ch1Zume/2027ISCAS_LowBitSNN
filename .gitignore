@@ -1,0 +1,62 @@
+# Python caches and build products
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local environments and secrets
+.venv/
+venv/
+env/
+ENV/
+ECNN/
+IQA/
+.env
+.env.*
+
+# Models, checkpoints, and training state
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.bin
+checkpoints/
+ckpt/
+pretrained/
+pretrained_models/
+
+# Experiment outputs and logs
+logs/
+log/
+outputs/
+output/
+results/
+runs/
+wandb/
+work_dirs/
+test_outputs/
+evaluation_output/
+experiment_logs/
+training_logs/
+trainer_output/
+waveletvae_trainlogs/
+
+# Local data and caches
+.cache/
+hf_cache/
+datasets/
+data/
+work/
+
+# Editors and OS files
+.vscode/
+.idea/
+.cursor/
+.DS_Store
+Thumbs.db
