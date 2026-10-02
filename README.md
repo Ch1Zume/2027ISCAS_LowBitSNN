@@ -1,6 +1,6 @@
-# 2027VLSI_SNN
+# 2027ISCAS_SNN
 
-Research code for the 2027 VLSI SNN experiments, including model definitions,
+Research code for the 2027 ISCAS SNN experiments, including model definitions,
 quantization/error-injection experiments, and evaluation scripts.
 
 ## Repository boundary
