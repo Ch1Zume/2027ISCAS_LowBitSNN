@@ -1,0 +1,68 @@
+{
+  "dataset": "DVSGesture",
+  "parameters": {
+    "backbone": 3395781,
+    "hidden": 1049600,
+    "classifier": 11275,
+    "total": 4456656,
+    "trainable_by_bp": 4456656
+  },
+  "checkpoint_sha256": "853c2b06bc5aeb9b5a20b2258ce662f3f32102540ac09bdac2a6ef763a46adcf",
+  "source_partition": "TRAIN",
+  "batches": [
+    {
+      "batch": 1,
+      "loss": 0.00043494225246831775,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 169,
+          "stdp_winners": 22,
+          "bp_rows_changed": 160,
+          "stdp_rows_changed": 22
+        }
+      },
+      "backbone_parameters_changed": 3363143,
+      "head_parameters_changed": 5140,
+      "physical_layers_checked": 12,
+      "loser_momentum_preserved": true
+    },
+    {
+      "batch": 2,
+      "loss": 5.066388553132128e-07,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 170,
+          "stdp_winners": 19,
+          "bp_rows_changed": 170,
+          "stdp_rows_changed": 19
+        }
+      },
+      "backbone_parameters_changed": 3357378,
+      "head_parameters_changed": 7157,
+      "physical_layers_checked": 12,
+      "loser_momentum_preserved": true
+    },
+    {
+      "batch": 3,
+      "loss": 0.00035673927050083876,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 168,
+          "stdp_winners": 19,
+          "bp_rows_changed": 168,
+          "stdp_rows_changed": 19
+        }
+      },
+      "backbone_parameters_changed": 3360138,
+      "head_parameters_changed": 8436,
+      "physical_layers_checked": 12,
+      "loser_momentum_preserved": true
+    }
+  ],
+  "passed": true,
+  "isolated_model_restored": true,
+  "published_checkpoint_unchanged": true,
+  "fp32_gradients": true,
+  "nonnegative_physical_weights": true,
+  "budget_passed": true
+}

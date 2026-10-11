@@ -1,0 +1,137 @@
+{
+  "checks": [
+    {
+      "bundle": "original",
+      "dataset": "MNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "0c03f7fdde9dd579f832a7e4d3c345b7a8b450839f88085e8552a63907d66d5e",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "original",
+      "dataset": "NMNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "95de3870ad5cb3c264c9ac45bd64d2446ed0a8224e31bc01c9f505b980552ec9",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "original",
+      "dataset": "CIFAR10DVS",
+      "counts": [
+        8100,
+        900,
+        1000
+      ],
+      "split_sha256": "c9339f7fd75cbb6d69bb1621c8bdaf0ad118eb1f1d825c4e30fb62471416c7a8",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "original",
+      "dataset": "DVSGesture",
+      "counts": [
+        972,
+        204,
+        288
+      ],
+      "split_sha256": "e94be76f1838d302734893b73be3913d6d5733ec73469ebf7d3dad264ddf7546",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "MNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "0c03f7fdde9dd579f832a7e4d3c345b7a8b450839f88085e8552a63907d66d5e",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "NMNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "95de3870ad5cb3c264c9ac45bd64d2446ed0a8224e31bc01c9f505b980552ec9",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "CIFAR10DVS",
+      "counts": [
+        8100,
+        900,
+        1000
+      ],
+      "split_sha256": "c9339f7fd75cbb6d69bb1621c8bdaf0ad118eb1f1d825c4e30fb62471416c7a8",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "DVSGesture",
+      "counts": [
+        972,
+        204,
+        288
+      ],
+      "split_sha256": "e94be76f1838d302734893b73be3913d6d5733ec73469ebf7d3dad264ddf7546",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "MNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "0c03f7fdde9dd579f832a7e4d3c345b7a8b450839f88085e8552a63907d66d5e",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "NMNIST",
+      "counts": [
+        53994,
+        6006,
+        10000
+      ],
+      "split_sha256": "95de3870ad5cb3c264c9ac45bd64d2446ed0a8224e31bc01c9f505b980552ec9",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "CIFAR10DVS",
+      "counts": [
+        8100,
+        900,
+        1000
+      ],
+      "split_sha256": "c9339f7fd75cbb6d69bb1621c8bdaf0ad118eb1f1d825c4e30fb62471416c7a8",
+      "TEST_evaluated": false
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "DVSGesture",
+      "counts": [
+        972,
+        204,
+        288
+      ],
+      "split_sha256": "e94be76f1838d302734893b73be3913d6d5733ec73469ebf7d3dad264ddf7546",
+      "TEST_evaluated": false
+    }
+  ],
+  "full_TEST_evaluated": false
+}

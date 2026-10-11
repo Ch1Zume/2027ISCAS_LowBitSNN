@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-05T13:08:19.421998+00:00",
+  "scope": "native final experiment process inventory, read only",
+  "registered_handles": [
+    {
+      "pid": 1221238,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1370761,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1370762,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1370763,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1406509,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1447052,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1447053,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1447054,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1461066,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1483393,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1488385,
+      "state": "missing",
+      "live": false
+    },
+    {
+      "pid": 1499937,
+      "state": "missing",
+      "live": false
+    }
+  ],
+  "matching_live_experiment_python_processes": [],
+  "all_registered_handles_terminal": true
+}

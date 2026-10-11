@@ -1,0 +1,11 @@
+{
+  "partition": "TRAIN",
+  "samples": 8100,
+  "views": 2,
+  "temporal_samples": {
+    "hidden1": 129600
+  },
+  "weights_and_homeostasis_unchanged": true,
+  "labels_used": false,
+  "training_steps": 0
+}

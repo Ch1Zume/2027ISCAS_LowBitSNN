@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-07T06:22:54.106472+00:00",
+  "all_FP32_goals_passed": true,
+  "full_TEST_replays_exact": true,
+  "precision_dataset_conditions": 12,
+  "original_artifact_audit_checks": 1452,
+  "pinned_artifacts": 190,
+  "manifest_sha256": "b0e9e40889c10bf53f971cda5d99e12d1bea9f2d70dddd72d30258c21dcd81f6",
+  "regression_tests_passed": 67,
+  "replays": [
+    {
+      "dataset": "MNIST",
+      "exact_full_test_replay": true,
+      "three_precisions": true,
+      "physical_weights_nonnegative": true,
+      "replay_path": "replays/MNIST.json",
+      "replay_sha256": "0ecba1651a5f06358b0d1ea7c014ec2cada07495b6aa5ccee8f009130dcb9c4a"
+    },
+    {
+      "dataset": "NMNIST",
+      "exact_full_test_replay": true,
+      "three_precisions": true,
+      "physical_weights_nonnegative": true,
+      "replay_path": "replays/NMNIST.json",
+      "replay_sha256": "125660ebf3f21a71da6a546e99941264d56bdf8bf49ef8ede59d46c5ebad4058"
+    },
+    {
+      "dataset": "CIFAR10DVS",
+      "exact_full_test_replay": true,
+      "three_precisions": true,
+      "physical_weights_nonnegative": true,
+      "replay_path": "replays/CIFAR10DVS.json",
+      "replay_sha256": "bc7f2df7b7c6fb87f5b14e5e1aeb5764e1ecc1867d76f0042c167dc848c58aca"
+    },
+    {
+      "dataset": "DVSGesture",
+      "exact_full_test_replay": true,
+      "three_precisions": true,
+      "physical_weights_nonnegative": true,
+      "replay_path": "replays/DVSGesture.json",
+      "replay_sha256": "0190e000b16b66f03352c73c13329e579162f57c540bc9c9879de4c67e054e68"
+    }
+  ],
+  "CIFAR_uint2_goal_open": true
+}

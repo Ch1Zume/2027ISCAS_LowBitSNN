@@ -1,0 +1,86 @@
+{
+  "dataset": "MNIST",
+  "parameters": {
+    "backbone": 3136005,
+    "hidden": 1311744,
+    "classifier": 5130,
+    "total": 4452879,
+    "trainable_by_bp": 3403791
+  },
+  "checkpoint_sha256": "6779085f244aaf24fa7732644ec64eba85f92d0a2643f749a14414fc4696cf0b",
+  "source_partition": "TRAIN",
+  "batches": [
+    {
+      "batch": 1,
+      "loss": 0.0012645869283005595,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 0,
+          "stdp_winners": 22,
+          "bp_rows_changed": 0,
+          "stdp_rows_changed": 22
+        },
+        "hidden2": {
+          "bp_winners": 7,
+          "stdp_winners": 0,
+          "bp_rows_changed": 7,
+          "stdp_rows_changed": 0
+        }
+      },
+      "backbone_parameters_changed": 3115639,
+      "head_parameters_changed": 5129,
+      "physical_layers_checked": 13,
+      "loser_momentum_preserved": true
+    },
+    {
+      "batch": 2,
+      "loss": 0.0006090703536756337,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 0,
+          "stdp_winners": 24,
+          "bp_rows_changed": 0,
+          "stdp_rows_changed": 24
+        },
+        "hidden2": {
+          "bp_winners": 7,
+          "stdp_winners": 0,
+          "bp_rows_changed": 7,
+          "stdp_rows_changed": 0
+        }
+      },
+      "backbone_parameters_changed": 3104718,
+      "head_parameters_changed": 5128,
+      "physical_layers_checked": 13,
+      "loser_momentum_preserved": true
+    },
+    {
+      "batch": 3,
+      "loss": 0.001238664030097425,
+      "layers": {
+        "hidden1": {
+          "bp_winners": 0,
+          "stdp_winners": 25,
+          "bp_rows_changed": 0,
+          "stdp_rows_changed": 25
+        },
+        "hidden2": {
+          "bp_winners": 11,
+          "stdp_winners": 0,
+          "bp_rows_changed": 11,
+          "stdp_rows_changed": 0
+        }
+      },
+      "backbone_parameters_changed": 3101228,
+      "head_parameters_changed": 5127,
+      "physical_layers_checked": 13,
+      "loser_momentum_preserved": true
+    }
+  ],
+  "passed": true,
+  "isolated_model_restored": true,
+  "published_checkpoint_unchanged": true,
+  "fp32_gradients": true,
+  "nonnegative_physical_weights": true,
+  "budget_passed": true
+}

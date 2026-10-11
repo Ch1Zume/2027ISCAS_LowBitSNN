@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-05T07:02:03.063685+00:00",
+  "verified": true,
+  "scope": "Independent native completed fixed-checkpoint replay; all full FP32/uint2/uint4 score fields exact, including loss/confusion/histograms",
+  "test_seed": 1042,
+  "checkpoint_sha256": "9cebc2d68b521ad414cae20aedd8a790e0a7fac80b3b0b57acaddb282baeb62f",
+  "replay_case": "cifar_lowerlr755_fixed_checkpoint_replay_audit",
+  "replay_result": "/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/results/accuracy/custom_performance_candidates_20261004/cifar_lowerlr755_fixed_checkpoint_replay_audit/runs/custom_CIFAR10DVS_exponential_seed42/accuracy.json",
+  "replay_result_sha256": "885c5ae77582bc5b269f59102361d98b19665663ad450a4a6ddf2608948d00b2",
+  "original_result_sha256": "6c1b9ad7e26ded961c633fcb59b2f6314e6d59e9494ab217d72588ab1f29292c",
+  "model_state_unchanged": true,
+  "new_training_steps": 0,
+  "counts": {
+    "float32": 755,
+    "uint2": 759,
+    "uint4": 755
+  }
+}

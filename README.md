@@ -1,23 +1,32 @@
-# 2027ISCAS_SNN
+# 2027ISCAS Low-bit SNN — final migration release
 
-Research code for the 2027 ISCAS SNN experiments, including model definitions,
-quantization/error-injection experiments, and evaluation scripts.
+This checkout retains the original four-dataset benchmark, the selected 3M–5M
+compression baseline, and the final LUT optimization. Model binaries travel in
+`SNN-models-20261011.zip`; final code, configurations, scores and source audits
+are tracked in Git. Datasets and discarded candidates are excluded.
 
-## Repository boundary
+Start with [迁移和复原手册](migration/RESTORE_MANUAL.md). Use
+`migration/replay.py` for full TEST and `migration/train.py` to start a new
+TRAIN/VALID run. `migration/catalog.json` binds each score to its unchanged
+checkpoint, runtime and configuration using relative paths.
 
-The project-specific code is kept in this repository. The public SpikingJelly
-source and the local compatibility snapshot are maintained separately under:
+The retained frozen runtimes are intentional: different final conditions used
+different implementations. The working modules in `experiments/` and `snn/`
+support new training; published replay imports the condition's frozen modules.
+Older absolute paths in source manifests are preserved provenance. The migration
+entry points override data locations in memory without rewriting those records.
 
-```text
-/work/dependency/2027VLSI_SNN/spikingjelly_repo
-/work/dependency/2027VLSI_SNN/spikingjelly_local_patch
-```
+The LUT final full TEST scores are:
 
-Checkpoints, datasets, W&B runs, Python environments, and generated work
-directories are intentionally excluded by `.gitignore`.
+| Dataset | Parameters | T/view | Views | FP32 | uint2 | uint4 |
+|---|---:|---:|---:|---:|---:|---:|
+| MNIST | 4,452,879 | 4 | 1 | 99.26% | 99.29% | 99.29% |
+| N-MNIST | 4,453,455 | 4 | 1 | 98.96% | 98.84% | 98.85% |
+| CIFAR10-DVS | 4,679,375 | 8 | 2 | 76.20% | 74.40% | 75.70% |
+| DVS Gesture | 4,456,656 | 16 | 1 | 95.49% | 95.14% | 95.14% |
 
-## Environment
-
-The original environment was local to the server and is not part of this
-repository. Recreate a suitable Conda environment from the package requirements
-needed for the experiment before running scripts.
+These are preserved completed measurements, not new migration-time TEST runs.
+CIFAR uses two inference views and calibrated hidden weights. Its uint2 result
+remains below 75%. MNIST/N-MNIST/Gesture retain already passing compressed weights;
+their selected LUT optimization epoch is zero. This is single-seed evidence.
+The original VGG/ResNet comparison campaign is not claimed complete.

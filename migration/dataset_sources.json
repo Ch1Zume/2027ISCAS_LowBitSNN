@@ -1,0 +1,112 @@
+{
+  "NMNIST": [
+    {
+      "name": "Train.zip",
+      "url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/1afc103f-8799-464a-a214-81bb9b1f9337",
+      "md5": "20959b8e626244a1b502305a9e6e2031",
+      "author_page": "https://www.garrickorchard.com/datasets/n-mnist",
+      "sha256": "1a54ee392a5e5082a0bef52911cd9211f63b950a4905ccd8890553804d3335f9"
+    },
+    {
+      "name": "Test.zip",
+      "url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/a99d0fee-a95b-4231-ad22-988fdb0a2411",
+      "md5": "69ca8762b2fe404d9b9bad1103e97832",
+      "author_page": "https://www.garrickorchard.com/datasets/n-mnist",
+      "sha256": "6ecfd5d85dbb49a631961d8dc3101871c5be53e645004ee34064f6557d169f09"
+    }
+  ],
+  "CIFAR10DVS": [
+    {
+      "name": "airplane.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712788/airplane.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712788",
+      "md5": "0afd5c4bf9ae06af762a77b180354fdd",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "automobile.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712791/automobile.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712791",
+      "md5": "8438dfeba3bc970c94962d995b1b9bdd",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "bird.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712794/bird.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712794",
+      "md5": "a9c207c91c55b9dc2002dc21c684d785",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "cat.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712812/cat.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712812",
+      "md5": "52c63c677c2b15fa5146a8daf4d56687",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "deer.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712815/deer.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712815",
+      "md5": "b6bf21f6c04d21ba4e23fc3e36c8a4a3",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "dog.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712818/dog.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712818",
+      "md5": "f379ebdf6703d16e0a690782e62639c3",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "frog.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712842/frog.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712842",
+      "md5": "cad6ed91214b1c7388a5f6ee56d08803",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "horse.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712851/horse.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712851",
+      "md5": "e7cbbf77bec584ffbf913f00e682782a",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "ship.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712836/ship.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712836",
+      "md5": "41c7bd7d6b251be82557c6cce9a7d5c9",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    },
+    {
+      "name": "truck.zip",
+      "url": "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/7712839/truck.zip",
+      "original_url": "https://ndownloader.figshare.com/files/7712839",
+      "md5": "89f3922fd147d9aeff89e76a2b0b70a7",
+      "author_page": "https://figshare.com/articles/dataset/CIFAR10-DVS_New/4724671/2"
+    }
+  ],
+  "DVSGesture": [
+    {
+      "name": "DvsGesture.tar.gz",
+      "url": "https://ibm.ent.box.com/index.php?rm=box_download_shared_file&shared_name=3hiq58ww1pbbjrinh367ykfdf60xsfm8&file_id=f_211521748942",
+      "md5": "8a5c71fb11e24e5ca5b11866ca6c00a1"
+    },
+    {
+      "name": "gesture_mapping.csv",
+      "url": "https://ibm.ent.box.com/index.php?rm=box_download_shared_file&shared_name=3hiq58ww1pbbjrinh367ykfdf60xsfm8&file_id=f_199380292206",
+      "md5": "109b2ae64a0e1f3ef535b18ad7367fd1"
+    },
+    {
+      "name": "LICENSE.txt",
+      "url": "https://ibm.ent.box.com/index.php?rm=box_download_shared_file&shared_name=3hiq58ww1pbbjrinh367ykfdf60xsfm8&file_id=f_199380302705",
+      "md5": "065e10099753156f18f51941e6e44b66"
+    },
+    {
+      "name": "README.txt",
+      "url": "https://ibm.ent.box.com/index.php?rm=box_download_shared_file&shared_name=3hiq58ww1pbbjrinh367ykfdf60xsfm8&file_id=f_211519208560",
+      "md5": "a0663d3b1d8307c329a43d949ee32d19"
+    }
+  ]
+}

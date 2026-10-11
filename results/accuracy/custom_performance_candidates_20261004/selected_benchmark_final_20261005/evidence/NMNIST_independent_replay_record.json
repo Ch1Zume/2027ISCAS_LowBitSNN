@@ -1,0 +1,34 @@
+{
+  "scope": "verification_replay_of_saved_full_test",
+  "dataset": "NMNIST",
+  "selected_epoch": 19,
+  "test_seed": 1042,
+  "contract": "best checkpoint weights + cfg.seed+1000 as complete_test_evaluation; paired precision streams",
+  "comparisons": {
+    "float32": {
+      "correct": 9875,
+      "samples": 10000,
+      "top1_accuracy": 0.9875,
+      "matches_recorded_counts": true,
+      "matches_prediction_histogram": true,
+      "absolute_loss_difference": 0.0
+    },
+    "uint2": {
+      "correct": 9877,
+      "samples": 10000,
+      "top1_accuracy": 0.9877,
+      "matches_recorded_counts": true,
+      "matches_prediction_histogram": true,
+      "absolute_loss_difference": 0.0
+    },
+    "uint4": {
+      "correct": 9878,
+      "samples": 10000,
+      "top1_accuracy": 0.9878,
+      "matches_recorded_counts": true,
+      "matches_prediction_histogram": true,
+      "absolute_loss_difference": 0.0
+    }
+  },
+  "verified": true
+}

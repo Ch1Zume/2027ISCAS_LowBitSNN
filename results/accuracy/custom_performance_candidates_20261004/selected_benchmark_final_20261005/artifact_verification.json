@@ -1,0 +1,58 @@
+{
+  "manifest": "/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/results/accuracy/custom_performance_candidates_20261004/selected_benchmark_final_20261005/benchmark_manifest.json",
+  "manifest_sha256": "acc10f604955dac77e501c58fb2e6eb842067a54cea291bc4de1419beaf49000",
+  "status": "artifact_consistency_verified",
+  "datasets": [
+    {
+      "dataset": "MNIST",
+      "checkpoint_sha256": "c632fe77dfd23ed0f173cd7f98e919e1a5ea38720f4ea15507885d306944e8cb",
+      "source_files_verified": 31,
+      "full_TEST_correct": {
+        "float32": 9923,
+        "uint2": 9927,
+        "uint4": 9925
+      },
+      "full_TEST_samples": 10000,
+      "FP32_met": true
+    },
+    {
+      "dataset": "NMNIST",
+      "checkpoint_sha256": "e22b60b921cd18a89a737cdb569e5eef701e2f3853f002b15d81b7b625e98181",
+      "source_files_verified": 31,
+      "full_TEST_correct": {
+        "float32": 9875,
+        "uint2": 9877,
+        "uint4": 9878
+      },
+      "full_TEST_samples": 10000,
+      "FP32_met": true
+    },
+    {
+      "dataset": "CIFAR10DVS",
+      "checkpoint_sha256": "9cebc2d68b521ad414cae20aedd8a790e0a7fac80b3b0b57acaddb282baeb62f",
+      "source_files_verified": 33,
+      "full_TEST_correct": {
+        "float32": 755,
+        "uint2": 759,
+        "uint4": 755
+      },
+      "full_TEST_samples": 1000,
+      "FP32_met": true
+    },
+    {
+      "dataset": "DVSGesture",
+      "checkpoint_sha256": "2d7d4b5b8104823d1a299664f3ecfe1232af26e3249228199ba045d6c510542d",
+      "source_files_verified": 33,
+      "full_TEST_correct": {
+        "float32": 274,
+        "uint2": 274,
+        "uint4": 274
+      },
+      "full_TEST_samples": 288,
+      "FP32_met": true
+    }
+  ],
+  "all_FP32_goals_met": true,
+  "TRAIN_or_TEST_steps_performed": 0,
+  "scope": "SHA-bound existing measured scores and independent replay evidence; no new accuracy measurement or physical-weight/runtime behavior proof"
+}

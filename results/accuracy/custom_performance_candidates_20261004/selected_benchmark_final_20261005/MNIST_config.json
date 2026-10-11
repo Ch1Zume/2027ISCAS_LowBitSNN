@@ -1,0 +1,126 @@
+{
+  "models": [
+    "custom"
+  ],
+  "datasets": [
+    "DVSGesture",
+    "NMNIST",
+    "CIFAR10DVS",
+    "MNIST"
+  ],
+  "homeostasis_modes": [
+    "exponential"
+  ],
+  "weight_bits": [
+    2,
+    4
+  ],
+  "hidden_widths": [
+    4096,
+    4096
+  ],
+  "learning_rules": [
+    "stdp",
+    "bp"
+  ],
+  "custom_channels": [
+    64,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "custom_pool_size": 4,
+  "hidden_dropout": 0.2,
+  "backbone_variant": "balanced_ei",
+  "hidden_surrogate": "atan",
+  "hidden_initial_row_sum": 1.0,
+  "hidden_fan_in": 64,
+  "calibrate_hidden": true,
+  "init": "from_scratch",
+  "seed": 42,
+  "lr": 0.001,
+  "model_learning_rates": {
+    "custom": 0.001
+  },
+  "optimizer": "adam",
+  "weight_decay": 0.0,
+  "stdp_lr": 0.001,
+  "weight_max": 1.0,
+  "training_epochs": {
+    "custom": 160
+  },
+  "validation_fraction": 0.1,
+  "cifar_train_fraction": 0.9,
+  "data_dir": "/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/datasets",
+  "out_dir": "/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/results/accuracy/custom_performance_20261004/runs",
+  "device": "auto",
+  "num_workers": 4,
+  "cpu_threads": 4,
+  "batch_sizes": {
+    "MNIST": 64,
+    "NMNIST": 32,
+    "CIFAR10DVS": 16,
+    "DVSGesture": 16
+  },
+  "dataset_profiles": {
+    "MNIST": {
+      "steps": 4,
+      "resolution": 28,
+      "pool_size": 2,
+      "epochs": 60,
+      "lr": 0.0005
+    },
+    "NMNIST": {
+      "steps": 4,
+      "resolution": 34,
+      "event_transform": "log1p",
+      "pool_size": 2,
+      "epochs": 80,
+      "lr": 0.0005
+    },
+    "CIFAR10DVS": {
+      "steps": 8,
+      "resolution": 64,
+      "event_transform": "log1p",
+      "pool_size": 4,
+      "epochs": 200,
+      "lr": 0.001
+    },
+    "DVSGesture": {
+      "steps": 8,
+      "resolution": 64,
+      "event_transform": "log1p",
+      "pool_size": 4,
+      "epochs": 160,
+      "lr": 0.001
+    }
+  },
+  "threshold": {
+    "baseline": 1.0,
+    "delta": 0.05,
+    "tau": 20.0,
+    "eta": 0.01,
+    "target_rate": 0.1,
+    "rate_tau": 20.0,
+    "minimum": 0.1,
+    "maximum": 10.0
+  },
+  "monitoring": {
+    "log_every_batches": 20,
+    "log_every_seconds": 30.0,
+    "probe_every_batches": 100,
+    "probe_samples": 256,
+    "warmup_batches": 100,
+    "collapse_warmup_epochs": 2,
+    "dead_patience": 3,
+    "collapse_patience": 3,
+    "collapse_fraction": 0.99,
+    "collapse_accuracy_margin": 0.02,
+    "min_loss_improvement": 0.01,
+    "min_accuracy_improvement": 0.002,
+    "early_stopping_patience": 20,
+    "early_stopping_min_epochs": 10
+  },
+  "evaluate_on_collapse": false
+}

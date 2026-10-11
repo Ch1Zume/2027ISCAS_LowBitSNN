@@ -1,0 +1,7 @@
+{
+  "test_file": "test/test_stdp_lut.py",
+  "passed": 21,
+  "failed": 0,
+  "full_TEST_performed": false,
+  "new_training_steps": 0
+}

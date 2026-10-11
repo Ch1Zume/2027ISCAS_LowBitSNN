@@ -1,0 +1,2 @@
+# Frozen runtimes/configs and manifests must retain identical bytes on all hosts.
+* -text
