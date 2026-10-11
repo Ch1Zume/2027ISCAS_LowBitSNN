@@ -1,6 +1,6 @@
 ﻿param(
     [string]$Server = 'IMECAS-yufan',
-    [string]$Destination = 'E:\IMECAS Project',
+    [string]$Destination = 'E:\IMECAS_SNN',
     [int]$Port = 22
 )
 $ErrorActionPreference = 'Stop'

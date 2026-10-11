@@ -19,29 +19,29 @@
 
 ## 2. 下载到 Windows
 
-电脑端目标为 `E:\IMECAS Project`。在 Windows PowerShell 中执行：
+电脑端目标为 `E:\IMECAS_SNN`。在 Windows PowerShell 中执行：
 
 ```powershell
-New-Item -ItemType Directory -Force -Path 'E:\IMECAS Project' | Out-Null
-scp 'IMECAS-yufan:/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/migration/downloads/download.ps1' 'E:\IMECAS Project\download.ps1'
-& 'E:\IMECAS Project\download.ps1'
+New-Item -ItemType Directory -Force -Path 'E:\IMECAS_SNN' | Out-Null
+scp 'IMECAS-yufan:/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/migration/downloads/download.ps1' 'E:\IMECAS_SNN\download.ps1'
+& 'E:\IMECAS_SNN\download.ps1'
 ```
 
 如果当前 PowerShell 执行策略拒绝本地脚本，可仅针对此次进程运行：
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'E:\IMECAS Project\download.ps1'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'E:\IMECAS_SNN\download.ps1'
 ```
 
 SSH 别名若未配置，使用实际地址：
 
 ```powershell
-& 'E:\IMECAS Project\download.ps1' -Server 'zhangyufan@100.102.159.102'
+& 'E:\IMECAS_SNN\download.ps1' -Server 'zhangyufan@100.102.159.102'
 ```
 
 脚本使用已有 OpenSSH 身份验证，不保存密码或私钥。已存在且哈希正确的 ZIP
 会跳过下载；中断后重新执行即可。全部包与解压后每个保留文件都校验通过后，
-生成 `E:\IMECAS Project\Algorithm\migration\WINDOWS_RECEIPT.json`。
+生成 `E:\IMECAS_SNN\Algorithm\migration\WINDOWS_RECEIPT.json`。
 
 服务器会保留最终交付包。只有电脑端生成成功回执并确认备份后，才适合删除
 服务器上的最终副本。当前会话无法直接写入 Windows 的 E: 盘，下载脚本须在
