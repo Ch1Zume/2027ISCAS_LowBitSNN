@@ -1,0 +1,45 @@
+# Float32 learning; weight quantization is applied only during evaluation.
+models: [vgg11_bn, resnet18, custom]
+datasets: [MNIST, NMNIST, CIFAR10DVS, DVSGesture]
+homeostasis_modes: [exponential, rate]
+weight_bits: [2, 4]
+hidden_widths: [4096, 4096]
+learning_rules: [stdp, bp]
+custom_channels: [64, 128, 256, 320, 512, 1024, 1024]
+resnet_adapter: true
+init: imagenet
+seed: 42
+lr: 0.001
+weight_decay: 0.0001
+stdp_lr: 0.01
+weight_max: 1.0
+validation_fraction: 0.1
+cifar_train_fraction: 0.9
+data_dir: ./datasets
+out_dir: ./results/accuracy
+device: auto
+num_workers: 0
+# Flushed stdout + metrics.jsonl; no remote logging account or extra package.
+monitoring:
+  log_every_batches: 20
+  log_every_seconds: 30.0
+  probe_every_batches: 100
+  probe_samples: 256
+  warmup_batches: 100
+  dead_patience: 3
+  collapse_patience: 3
+  collapse_fraction: 0.99
+  collapse_accuracy_margin: 0.02
+  min_loss_improvement: 0.01
+  min_accuracy_improvement: 0.002
+  early_stopping_patience: 5
+  early_stopping_min_epochs: 3
+threshold:
+  baseline: 1.0
+  delta: 0.05
+  tau: 20.0
+  eta: 0.01
+  target_rate: 0.1
+  rate_tau: 20.0
+  minimum: 0.1
+  maximum: 10.0

@@ -1,0 +1,120 @@
+models:
+- vgg11_bn
+- resnet18
+- custom
+datasets:
+- MNIST
+- NMNIST
+- CIFAR10DVS
+- DVSGesture
+homeostasis_modes:
+- exponential
+- rate
+weight_bits:
+- 2
+- 4
+hidden_widths:
+- 4096
+- 4096
+learning_rules:
+- stdp
+- bp
+custom_channels:
+- 64
+- 128
+- 256
+- 320
+- 512
+- 1024
+- 1024
+resnet_adapter: true
+init: dataset_snn
+seed: 42
+lr: 0.001
+weight_decay: 0.0
+stdp_lr: 0.01
+weight_max: 1.0
+validation_fraction: 0.1
+cifar_train_fraction: 0.9
+data_dir: ./datasets
+out_dir: results/accuracy/campaign_20261004/runs
+device: auto
+num_workers: 0
+monitoring:
+  log_every_batches: 20
+  log_every_seconds: 30.0
+  probe_every_batches: 100
+  probe_samples: 256
+  warmup_batches: 100
+  dead_patience: 3
+  collapse_patience: 3
+  collapse_fraction: 0.99
+  collapse_accuracy_margin: 0.02
+  min_loss_improvement: 0.01
+  min_accuracy_improvement: 0.002
+  early_stopping_patience: 5
+  early_stopping_min_epochs: 3
+threshold:
+  baseline: 1.0
+  delta: 0.05
+  tau: 20.0
+  eta: 0.01
+  target_rate: 0.1
+  rate_tau: 20.0
+  minimum: 0.1
+  maximum: 10.0
+vgg_pool_size: 1
+training_epochs:
+  vgg11_bn: 10
+  resnet18: 10
+  custom: 30
+model_learning_rates:
+  custom: 0.01
+  vgg11_bn: 0.001
+  resnet18: 0.001
+hidden_surrogate: atan
+hidden_initial_row_sum: 1.0
+backbone_variant: positive_ei
+batch_sizes:
+  MNIST: 64
+  NMNIST: 8
+  CIFAR10DVS: 2
+  DVSGesture: 2
+pretrained_checkpoints:
+  vgg11_bn:
+    MNIST:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-VGG11
+      sha256: ecc776b9d266b12d94c0b03408074291a5ef89e507152ebfeb33d3dd33dd0a19
+      config_sha256: 2c3609e76b10f1bf9206c13bdcc324899cc3d071a0adc4672956560c1e1209a8
+    NMNIST:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-VGG11
+      sha256: ecc776b9d266b12d94c0b03408074291a5ef89e507152ebfeb33d3dd33dd0a19
+      config_sha256: 2c3609e76b10f1bf9206c13bdcc324899cc3d071a0adc4672956560c1e1209a8
+    CIFAR10DVS:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10DVS-VGG11
+      sha256: bbc56bc867392357229f6d5a444e0342d9f41b1ffdb7a03cd67397cd38cc1f2f
+      config_sha256: eaa4511df0601ecfe9827e3dd73b73520da9ab1ec7b5982187180961f204c6cf
+    DVSGesture:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10DVS-VGG11
+      sha256: bbc56bc867392357229f6d5a444e0342d9f41b1ffdb7a03cd67397cd38cc1f2f
+      config_sha256: eaa4511df0601ecfe9827e3dd73b73520da9ab1ec7b5982187180961f204c6cf
+  resnet18:
+    MNIST:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-ResNet18
+      sha256: 9a61a88485e755e48c6e26ea50b340c598e3f1f9b897e0d7baa5d6b57eebd57d
+      config_sha256: 833282782e26468a42d239f16a1343c84554256f7a691b8930b6e4e40213ff80
+    NMNIST:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-ResNet18
+      sha256: 9a61a88485e755e48c6e26ea50b340c598e3f1f9b897e0d7baa5d6b57eebd57d
+      config_sha256: 833282782e26468a42d239f16a1343c84554256f7a691b8930b6e4e40213ff80
+    CIFAR10DVS:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-ResNet18
+      sha256: 9a61a88485e755e48c6e26ea50b340c598e3f1f9b897e0d7baa5d6b57eebd57d
+      config_sha256: 833282782e26468a42d239f16a1343c84554256f7a691b8930b6e4e40213ff80
+    DVSGesture:
+      directory: /home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/checkpoints/deepeisnn/CIFAR10-ResNet18
+      sha256: 9a61a88485e755e48c6e26ea50b340c598e3f1f9b897e0d7baa5d6b57eebd57d
+      config_sha256: 833282782e26468a42d239f16a1343c84554256f7a691b8930b6e4e40213ff80
+calibrate_hidden: true
+hidden_fan_in: 32
+optimizer: sgd

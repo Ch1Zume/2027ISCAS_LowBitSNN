@@ -50,7 +50,8 @@ waveletvae_trainlogs/
 # Local data and caches
 .cache/
 hf_cache/
-datasets/
+/datasets/*
+!/datasets/.gitkeep
 data/
 work/
 

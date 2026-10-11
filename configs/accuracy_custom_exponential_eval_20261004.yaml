@@ -1,0 +1,80 @@
+models:
+- custom
+datasets:
+- MNIST
+- NMNIST
+- CIFAR10DVS
+- DVSGesture
+homeostasis_modes:
+- exponential
+weight_bits:
+- 2
+- 4
+hidden_widths:
+- 4096
+- 4096
+learning_rules:
+- stdp
+- bp
+custom_channels:
+- 64
+- 128
+- 256
+- 320
+- 512
+- 1024
+- 1024
+resnet_adapter: true
+init: from_scratch
+seed: 42
+lr: 0.001
+weight_decay: 0.0
+stdp_lr: 0.01
+weight_max: 1.0
+validation_fraction: 0.1
+cifar_train_fraction: 0.9
+data_dir: ./datasets
+out_dir: results/accuracy/custom_exponential_eval_20261004/runs
+device: auto
+num_workers: 0
+monitoring:
+  log_every_batches: 20
+  log_every_seconds: 30.0
+  probe_every_batches: 100
+  probe_samples: 256
+  warmup_batches: 100
+  dead_patience: 3
+  collapse_patience: 3
+  collapse_fraction: 0.99
+  collapse_accuracy_margin: 0.02
+  min_loss_improvement: 0.01
+  min_accuracy_improvement: 0.002
+  early_stopping_patience: 5
+  early_stopping_min_epochs: 3
+  collapse_warmup_epochs: 1
+threshold:
+  baseline: 1.0
+  delta: 0.05
+  tau: 20.0
+  eta: 0.01
+  target_rate: 0.1
+  rate_tau: 20.0
+  minimum: 0.1
+  maximum: 10.0
+vgg_pool_size: 1
+training_epochs:
+  custom: 30
+model_learning_rates:
+  custom: 0.01
+hidden_surrogate: atan
+hidden_initial_row_sum: 1.0
+backbone_variant: positive_ei
+batch_sizes:
+  MNIST: 64
+  NMNIST: 8
+  CIFAR10DVS: 2
+  DVSGesture: 2
+calibrate_hidden: true
+hidden_fan_in: 32
+optimizer: sgd
+evaluate_on_collapse: true
