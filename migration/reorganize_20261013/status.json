@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-13",
+  "phase": "server_validation_complete",
+  "cleanup_complete": true,
+  "datasets_and_caches_preserved": true,
+  "cold_restore_passed": true,
+  "full_TEST_conditions": 12,
+  "all_scores_and_layer_counts_exact": true,
+  "github_target": "main",
+  "windows_download": "pending client execution",
+  "windows_destination": "E:\\IMECAS_SNN\\20261013",
+  "publication_record": "migration/releases/20261013/PUBLICATION.json (server delivery directory)"
+}

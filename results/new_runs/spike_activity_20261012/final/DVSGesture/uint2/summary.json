@@ -1,0 +1,1890 @@
+{
+  "dataset": "DVSGesture",
+  "precision": "uint2",
+  "samples": 288,
+  "views": 1,
+  "steps_per_view": 16,
+  "score": {
+    "correct": 274,
+    "samples": 288,
+    "top1_accuracy": 0.9513888888888888,
+    "loss": 0.2972868841382892,
+    "prediction_histogram": [
+      22,
+      24,
+      23,
+      26,
+      23,
+      25,
+      24,
+      24,
+      49,
+      27,
+      21
+    ],
+    "label_histogram": [
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      48,
+      24,
+      24
+    ],
+    "dominant_prediction_fraction": 0.1701388888888889,
+    "majority_class_baseline": 0.16666666666666666,
+    "logit_range_max": 361.8555908203125,
+    "confusion_matrix": [
+      [
+        21,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        21,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        23,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        47,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        21,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        21
+      ]
+    ],
+    "per_class_accuracy": [
+      0.875,
+      1.0,
+      0.875,
+      1.0,
+      0.9583333333333334,
+      1.0,
+      1.0,
+      1.0,
+      0.9791666666666666,
+      0.875,
+      0.875
+    ],
+    "quantized_layers": [
+      "hidden1"
+    ]
+  },
+  "expected": {
+    "correct": 274,
+    "samples": 288,
+    "top1_accuracy": 0.9513888888888888,
+    "loss": 0.2972868841382892,
+    "prediction_histogram": [
+      22,
+      24,
+      23,
+      26,
+      23,
+      25,
+      24,
+      24,
+      49,
+      27,
+      21
+    ],
+    "label_histogram": [
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      24,
+      48,
+      24,
+      24
+    ],
+    "dominant_prediction_fraction": 0.1701388888888889,
+    "majority_class_baseline": 0.16666666666666666,
+    "logit_range_max": 361.8555908203125,
+    "confusion_matrix": [
+      [
+        21,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        21,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        23,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        47,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        21,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        21
+      ]
+    ],
+    "per_class_accuracy": [
+      0.875,
+      1.0,
+      0.875,
+      1.0,
+      0.9583333333333334,
+      1.0,
+      1.0,
+      1.0,
+      0.9791666666666666,
+      0.875,
+      0.875
+    ],
+    "quantized_layers": [
+      "hidden1"
+    ]
+  },
+  "validation": {
+    "counts_match": true,
+    "exact_full_score_replay": true,
+    "inference_state_unchanged": true,
+    "exact_first_batch_instrumentation": true,
+    "all_hidden_shadow_spikes_match": true
+  },
+  "checkpoint_sha256": "77d60113e12dabe7287a281bbf187b1806618fdea4edf1f80029da0d3851a8bc",
+  "split_sha256": "e94be76f1838d302734893b73be3913d6d5733ec73469ebf7d3dad264ddf7546",
+  "TEST_manifest_sha256": "6cb21277766b4029ebee2e62d9f9c53465c5689d0908682a442533816c62fcfe",
+  "instrumentation_sha256": {
+    "activity.py": "7bc85de6e5ffcb969cfb5f124b4fa61f181a0356edce6636ea27a23deaadae2c",
+    "run_activity.py": "868393dc13994b7f3032cf8205415dcc242a673d3f8603602d0ab431f29928de",
+    "test_data.py": "6f9f33a68dc29fd66c7bc2d9e6f54f019f0a765e43491034e45559dcd6be7657"
+  },
+  "evidence": "complete TEST algorithmic activity; physical power/reset/Hz not measured",
+  "runtime_seconds": 6.081173728685826,
+  "environment": {
+    "torch": "2.7.1+cu126",
+    "cuda": "12.6",
+    "GPU": "NVIDIA GeForce RTX 4090",
+    "batch_size": 8
+  },
+  "layers": {
+    "network_input": {
+      "role": "input",
+      "input_units": 32768,
+      "neuron_units": 0,
+      "metadata": {},
+      "binary_input": false,
+      "counters": {
+        "input_nonzero": 27784575
+      },
+      "input_activity": 0.18400996923446655,
+      "firing_activity": null,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 96474.21875,
+          "p50": 81981.0,
+          "p95": 179863.65,
+          "p99": 207428.25,
+          "minimum": 33234.0,
+          "maximum": 218685.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 6029.638671875,
+          "p50": 5105.0,
+          "p95": 11378.3,
+          "p99": 13226.740000000005,
+          "minimum": 1831.0,
+          "maximum": 15753.0
+        }
+      }
+    },
+    "backbone.0.excitatory": {
+      "role": "synapse",
+      "input_units": 32768,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 2,
+        "out_channels": 64,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.006076388992369175
+      },
+      "binary_input": false,
+      "counters": {
+        "input_nonzero": 27784575,
+        "addressed_terms": 15954830720,
+        "effective_nonzero_weight_terms": 15861758422
+      },
+      "input_activity": 0.18400996923446655,
+      "firing_activity": null,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 96474.21875,
+          "p50": 81981.0,
+          "p95": 179863.65,
+          "p99": 207428.25,
+          "minimum": 33234.0,
+          "maximum": 218685.0
+        },
+        "addressed_terms": {
+          "mean": 55398717.777777776,
+          "p50": 47125600.0,
+          "p95": 103008163.2,
+          "p99": 118864593.27999999,
+          "minimum": 19075840.0,
+          "maximum": 125285824.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 55075550.07638889,
+          "p50": 46851243.0,
+          "p95": 102401590.45,
+          "p99": 118160941.99,
+          "minimum": 18969400.0,
+          "maximum": 124540086.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 6029.638671875,
+          "p50": 5105.0,
+          "p95": 11378.3,
+          "p99": 13226.740000000005,
+          "minimum": 1831.0,
+          "maximum": 15753.0
+        },
+        "addressed_terms": {
+          "mean": 3462419.861111111,
+          "p50": 2934720.0,
+          "p95": 6521423.999999999,
+          "p99": 7598595.840000006,
+          "minimum": 1050112.0,
+          "maximum": 9054528.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 3442221.8797743055,
+          "p50": 2917572.5,
+          "p95": 6482779.099999999,
+          "p99": 7553585.180000006,
+          "minimum": 1044152.0,
+          "maximum": 9000782.0
+        }
+      }
+    },
+    "backbone.0.inhibitory": {
+      "role": "synapse",
+      "input_units": 32768,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 2,
+        "out_channels": 64,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.0069444444961845875
+      },
+      "binary_input": false,
+      "counters": {
+        "input_nonzero": 27784575,
+        "addressed_terms": 15954830720,
+        "effective_nonzero_weight_terms": 15840909302
+      },
+      "input_activity": 0.18400996923446655,
+      "firing_activity": null,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 96474.21875,
+          "p50": 81981.0,
+          "p95": 179863.65,
+          "p99": 207428.25,
+          "minimum": 33234.0,
+          "maximum": 218685.0
+        },
+        "addressed_terms": {
+          "mean": 55398717.777777776,
+          "p50": 47125600.0,
+          "p95": 103008163.2,
+          "p99": 118864593.27999999,
+          "minimum": 19075840.0,
+          "maximum": 125285824.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 55003157.29861111,
+          "p50": 46788689.5,
+          "p95": 102276882.95,
+          "p99": 118024934.41,
+          "minimum": 18935801.0,
+          "maximum": 124403725.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 6029.638671875,
+          "p50": 5105.0,
+          "p95": 11378.3,
+          "p99": 13226.740000000005,
+          "minimum": 1831.0,
+          "maximum": 15753.0
+        },
+        "addressed_terms": {
+          "mean": 3462419.861111111,
+          "p50": 2934720.0,
+          "p95": 6521423.999999999,
+          "p99": 7598595.840000006,
+          "minimum": 1050112.0,
+          "maximum": 9054528.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 3437697.3311631945,
+          "p50": 2913784.5,
+          "p95": 6475142.699999999,
+          "p99": 7544879.470000006,
+          "minimum": 1042484.0,
+          "maximum": 8990635.0
+        }
+      }
+    },
+    "backbone.2": {
+      "role": "neuron",
+      "input_units": 0,
+      "neuron_units": 1048576,
+      "metadata": {
+        "kind": "ParametricLIFNode",
+        "reset": "hard",
+        "v_reset": 0.0,
+        "end_membrane_observed": true,
+        "neuron_updates_are_not_measured_SA_enables": true
+      },
+      "binary_input": true,
+      "counters": {
+        "fire": 124374207,
+        "neuron_updates": 4831838208
+      },
+      "input_activity": null,
+      "firing_activity": 0.02574055703977744,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "fire": {
+          "mean": 431854.8854166667,
+          "p50": 428850.5,
+          "p95": 529613.45,
+          "p99": 602422.4299999999,
+          "minimum": 314268.0,
+          "maximum": 662831.0
+        },
+        "neuron_updates": {
+          "mean": 16777216.0,
+          "p50": 16777216.0,
+          "p95": 16777216.0,
+          "p99": 16777216.0,
+          "minimum": 16777216.0,
+          "maximum": 16777216.0
+        }
+      },
+      "simultaneous_per_step": {
+        "fire": {
+          "mean": 26990.930338541668,
+          "p50": 27895.5,
+          "p95": 35640.3,
+          "p99": 40453.39000000001,
+          "minimum": 3730.0,
+          "maximum": 46992.0
+        },
+        "neuron_updates": {
+          "mean": 1048576.0,
+          "p50": 1048576.0,
+          "p95": 1048576.0,
+          "p99": 1048576.0,
+          "minimum": 1048576.0,
+          "maximum": 1048576.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.025740557039777436,
+        "p50": 0.011284722222222222,
+        "p95": 0.10047743055555555,
+        "p99": 0.1968315972222222,
+        "minimum": 0.0,
+        "maximum": 0.4826388888888889
+      },
+      "silent_neuron_fraction": 0.06737995147705078
+    },
+    "backbone.4.excitatory": {
+      "role": "synapse",
+      "input_units": 262144,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 64,
+        "out_channels": 128,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.0077311196364462376
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 87873929,
+        "addressed_terms": 99761928960,
+        "effective_nonzero_weight_terms": 99168427771
+      },
+      "input_activity": 0.07274575448698467,
+      "firing_activity": null,
+      "SOP": 99761928960,
+      "effective_SOP": 99168427771,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 305117.80902777775,
+          "p50": 303785.5,
+          "p95": 374328.8,
+          "p99": 445905.3299999999,
+          "minimum": 196895.0,
+          "maximum": 496728.0
+        },
+        "addressed_terms": {
+          "mean": 346395586.6666667,
+          "p50": 345292096.0,
+          "p95": 425195116.79999995,
+          "p99": 506360162.5599999,
+          "minimum": 223921280.0,
+          "maximum": 563319168.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 344334818.6493056,
+          "p50": 343315547.0,
+          "p95": 422632897.79999995,
+          "p99": 503129891.8199999,
+          "minimum": 222815445.0,
+          "maximum": 559475701.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 19069.86306423611,
+          "p50": 19611.5,
+          "p95": 25498.65,
+          "p99": 29607.750000000022,
+          "minimum": 2676.0,
+          "maximum": 35572.0
+        },
+        "addressed_terms": {
+          "mean": 21649724.166666668,
+          "p50": 22244416.0,
+          "p95": 28973670.4,
+          "p99": 33581056.0,
+          "minimum": 3075456.0,
+          "maximum": 40346880.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 21520926.1655816,
+          "p50": 22111342.5,
+          "p95": 28782411.95,
+          "p99": 33382510.860000003,
+          "minimum": 3053528.0,
+          "maximum": 40072077.0
+        }
+      }
+    },
+    "backbone.4.inhibitory": {
+      "role": "synapse",
+      "input_units": 262144,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 64,
+        "out_channels": 128,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.00824652798473835
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 87873929,
+        "addressed_terms": 99761928960,
+        "effective_nonzero_weight_terms": 99073818812
+      },
+      "input_activity": 0.07274575448698467,
+      "firing_activity": null,
+      "SOP": 99761928960,
+      "effective_SOP": 99073818812,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 305117.80902777775,
+          "p50": 303785.5,
+          "p95": 374328.8,
+          "p99": 445905.3299999999,
+          "minimum": 196895.0,
+          "maximum": 496728.0
+        },
+        "addressed_terms": {
+          "mean": 346395586.6666667,
+          "p50": 345292096.0,
+          "p95": 425195116.79999995,
+          "p99": 506360162.5599999,
+          "minimum": 223921280.0,
+          "maximum": 563319168.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 344006315.3194444,
+          "p50": 342822406.5,
+          "p95": 422176128.59999996,
+          "p99": 502972495.32999986,
+          "minimum": 222117096.0,
+          "maximum": 559966593.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 19069.86306423611,
+          "p50": 19611.5,
+          "p95": 25498.65,
+          "p99": 29607.750000000022,
+          "minimum": 2676.0,
+          "maximum": 35572.0
+        },
+        "addressed_terms": {
+          "mean": 21649724.166666668,
+          "p50": 22244416.0,
+          "p95": 28973670.4,
+          "p99": 33581056.0,
+          "minimum": 3075456.0,
+          "maximum": 40346880.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 21500394.707465276,
+          "p50": 22095122.5,
+          "p95": 28760600.549999993,
+          "p99": 33349005.940000005,
+          "minimum": 3063004.0,
+          "maximum": 40092903.0
+        }
+      }
+    },
+    "backbone.6": {
+      "role": "neuron",
+      "input_units": 0,
+      "neuron_units": 524288,
+      "metadata": {
+        "kind": "ParametricLIFNode",
+        "reset": "hard",
+        "v_reset": 0.0,
+        "end_membrane_observed": true,
+        "neuron_updates_are_not_measured_SA_enables": true
+      },
+      "binary_input": true,
+      "counters": {
+        "fire": 52239639,
+        "neuron_updates": 2415919104
+      },
+      "input_activity": null,
+      "firing_activity": 0.02162309115131696,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "fire": {
+          "mean": 181387.63541666666,
+          "p50": 176143.5,
+          "p95": 235059.0499999999,
+          "p99": 294867.17,
+          "minimum": 113440.0,
+          "maximum": 351850.0
+        },
+        "neuron_updates": {
+          "mean": 8388608.0,
+          "p50": 8388608.0,
+          "p95": 8388608.0,
+          "p99": 8388608.0,
+          "minimum": 8388608.0,
+          "maximum": 8388608.0
+        }
+      },
+      "simultaneous_per_step": {
+        "fire": {
+          "mean": 11336.727213541666,
+          "p50": 11103.0,
+          "p95": 20577.25,
+          "p99": 25785.230000000003,
+          "minimum": 149.0,
+          "maximum": 34046.0
+        },
+        "neuron_updates": {
+          "mean": 524288.0,
+          "p50": 524288.0,
+          "p95": 524288.0,
+          "p99": 524288.0,
+          "minimum": 524288.0,
+          "maximum": 524288.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.021623091151316966,
+        "p50": 0.009548611111111112,
+        "p95": 0.08658854166666667,
+        "p99": 0.1759982638888889,
+        "minimum": 0.0,
+        "maximum": 0.3463541666666667
+      },
+      "silent_neuron_fraction": 0.06867027282714844
+    },
+    "backbone.8.excitatory": {
+      "role": "synapse",
+      "input_units": 131072,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 128,
+        "out_channels": 256,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.0187208391726017
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 29254647,
+        "addressed_terms": 65655171584,
+        "effective_nonzero_weight_terms": 64582101199
+      },
+      "input_activity": 0.04843646784623464,
+      "firing_activity": null,
+      "SOP": 65655171584,
+      "effective_SOP": 64582101199,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 101578.63541666667,
+          "p50": 101054.0,
+          "p95": 122003.5,
+          "p99": 147986.01,
+          "minimum": 61952.0,
+          "maximum": 192132.0
+        },
+        "addressed_terms": {
+          "mean": 227969345.7777778,
+          "p50": 227174656.0,
+          "p95": 273990873.59999996,
+          "p99": 332284899.84,
+          "minimum": 138511104.0,
+          "maximum": 427136768.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 224243406.9409722,
+          "p50": 223538857.0,
+          "p95": 269384951.3,
+          "p99": 326383715.15,
+          "minimum": 136904461.0,
+          "maximum": 419173746.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 6348.664713541667,
+          "p50": 6125.0,
+          "p95": 12030.949999999999,
+          "p99": 15335.86,
+          "minimum": 101.0,
+          "maximum": 19514.0
+        },
+        "addressed_terms": {
+          "mean": 14248084.111111112,
+          "p50": 13769728.0,
+          "p95": 26793766.39999999,
+          "p99": 34290667.52,
+          "minimum": 232704.0,
+          "maximum": 43907840.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 14015212.933810763,
+          "p50": 13556907.0,
+          "p95": 26280285.749999996,
+          "p99": 33584050.46,
+          "minimum": 230169.0,
+          "maximum": 42985291.0
+        }
+      }
+    },
+    "backbone.8.inhibitory": {
+      "role": "synapse",
+      "input_units": 131072,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 128,
+        "out_channels": 256,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.01154242642223835
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 29254647,
+        "addressed_terms": 65655171584,
+        "effective_nonzero_weight_terms": 64943242005
+      },
+      "input_activity": 0.04843646784623464,
+      "firing_activity": null,
+      "SOP": 65655171584,
+      "effective_SOP": 64943242005,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 101578.63541666667,
+          "p50": 101054.0,
+          "p95": 122003.5,
+          "p99": 147986.01,
+          "minimum": 61952.0,
+          "maximum": 192132.0
+        },
+        "addressed_terms": {
+          "mean": 227969345.7777778,
+          "p50": 227174656.0,
+          "p95": 273990873.59999996,
+          "p99": 332284899.84,
+          "minimum": 138511104.0,
+          "maximum": 427136768.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 225497368.07291666,
+          "p50": 224719169.0,
+          "p95": 271046158.15,
+          "p99": 328647652.89,
+          "minimum": 136792465.0,
+          "maximum": 422488719.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 6348.664713541667,
+          "p50": 6125.0,
+          "p95": 12030.949999999999,
+          "p99": 15335.86,
+          "minimum": 101.0,
+          "maximum": 19514.0
+        },
+        "addressed_terms": {
+          "mean": 14248084.111111112,
+          "p50": 13769728.0,
+          "p95": 26793766.39999999,
+          "p99": 34290667.52,
+          "minimum": 232704.0,
+          "maximum": 43907840.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 14093585.504557291,
+          "p50": 13616337.0,
+          "p95": 26514419.599999994,
+          "p99": 33937647.42,
+          "minimum": 229958.0,
+          "maximum": 43455211.0
+        }
+      }
+    },
+    "backbone.10": {
+      "role": "neuron",
+      "input_units": 0,
+      "neuron_units": 262144,
+      "metadata": {
+        "kind": "ParametricLIFNode",
+        "reset": "hard",
+        "v_reset": 0.0,
+        "end_membrane_observed": true,
+        "neuron_updates_are_not_measured_SA_enables": true
+      },
+      "binary_input": true,
+      "counters": {
+        "fire": 39252329,
+        "neuron_updates": 1207959552
+      },
+      "input_activity": null,
+      "firing_activity": 0.03249473787016339,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "fire": {
+          "mean": 136292.80902777778,
+          "p50": 132027.0,
+          "p95": 181007.49999999997,
+          "p99": 205933.4899999999,
+          "minimum": 86187.0,
+          "maximum": 237848.0
+        },
+        "neuron_updates": {
+          "mean": 4194304.0,
+          "p50": 4194304.0,
+          "p95": 4194304.0,
+          "p99": 4194304.0,
+          "minimum": 4194304.0,
+          "maximum": 4194304.0
+        }
+      },
+      "simultaneous_per_step": {
+        "fire": {
+          "mean": 8518.300564236111,
+          "p50": 8588.5,
+          "p95": 13756.599999999999,
+          "p99": 16572.810000000005,
+          "minimum": 17.0,
+          "maximum": 20502.0
+        },
+        "neuron_updates": {
+          "mean": 262144.0,
+          "p50": 262144.0,
+          "p95": 262144.0,
+          "p99": 262144.0,
+          "minimum": 262144.0,
+          "maximum": 262144.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.03249473787016339,
+        "p50": 0.013020833333333334,
+        "p95": 0.1382378472222222,
+        "p99": 0.23893229166666666,
+        "minimum": 0.0,
+        "maximum": 0.4331597222222222
+      },
+      "silent_neuron_fraction": 0.08928680419921875
+    },
+    "backbone.12.excitatory": {
+      "role": "synapse",
+      "input_units": 65536,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 256,
+        "out_channels": 288,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.016979830339550972
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 18745779,
+        "addressed_terms": 45982577664,
+        "effective_nonzero_weight_terms": 45278032170
+      },
+      "input_activity": 0.06207419435183207,
+      "firing_activity": null,
+      "SOP": 45982577664,
+      "effective_SOP": 45278032170,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 65089.510416666664,
+          "p50": 63663.5,
+          "p95": 79394.4,
+          "p99": 91941.78,
+          "minimum": 45210.0,
+          "maximum": 96003.0
+        },
+        "addressed_terms": {
+          "mean": 159661728.0,
+          "p50": 156785040.0,
+          "p95": 195842736.0,
+          "p99": 225015497.27999997,
+          "minimum": 109689984.0,
+          "maximum": 238898592.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 157215389.47916666,
+          "p50": 154356852.5,
+          "p95": 193002568.89999998,
+          "p99": 221468729.55999997,
+          "minimum": 107889611.0,
+          "maximum": 235402201.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 4068.0944010416665,
+          "p50": 4191.5,
+          "p95": 6163.899999999998,
+          "p99": 7055.950000000004,
+          "minimum": 16.0,
+          "maximum": 9052.0
+        },
+        "addressed_terms": {
+          "mean": 9978858.0,
+          "p50": 10283040.0,
+          "p95": 15072479.999999996,
+          "p99": 17118351.36,
+          "minimum": 41472.0,
+          "maximum": 21947904.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 9825961.842447916,
+          "p50": 10123153.0,
+          "p95": 14839725.5,
+          "p99": 16852427.610000003,
+          "minimum": 40902.0,
+          "maximum": 21590516.0
+        }
+      }
+    },
+    "backbone.12.inhibitory": {
+      "role": "synapse",
+      "input_units": 65536,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 256,
+        "out_channels": 288,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.010686427354812622
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 18745779,
+        "addressed_terms": 45982577664,
+        "effective_nonzero_weight_terms": 45561171816
+      },
+      "input_activity": 0.06207419435183207,
+      "firing_activity": null,
+      "SOP": 45982577664,
+      "effective_SOP": 45561171816,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 65089.510416666664,
+          "p50": 63663.5,
+          "p95": 79394.4,
+          "p99": 91941.78,
+          "minimum": 45210.0,
+          "maximum": 96003.0
+        },
+        "addressed_terms": {
+          "mean": 159661728.0,
+          "p50": 156785040.0,
+          "p95": 195842736.0,
+          "p99": 225015497.27999997,
+          "minimum": 109689984.0,
+          "maximum": 238898592.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 158198513.25,
+          "p50": 155267030.5,
+          "p95": 194090375.25,
+          "p99": 223100663.79,
+          "minimum": 108674388.0,
+          "maximum": 236664022.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 4068.0944010416665,
+          "p50": 4191.5,
+          "p95": 6163.899999999998,
+          "p99": 7055.950000000004,
+          "minimum": 16.0,
+          "maximum": 9052.0
+        },
+        "addressed_terms": {
+          "mean": 9978858.0,
+          "p50": 10283040.0,
+          "p95": 15072479.999999996,
+          "p99": 17118351.36,
+          "minimum": 41472.0,
+          "maximum": 21947904.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 9887407.078125,
+          "p50": 10184572.0,
+          "p95": 14952266.549999997,
+          "p99": 16998525.480000004,
+          "minimum": 41071.0,
+          "maximum": 21730891.0
+        }
+      }
+    },
+    "backbone.14": {
+      "role": "neuron",
+      "input_units": 0,
+      "neuron_units": 73728,
+      "metadata": {
+        "kind": "ParametricLIFNode",
+        "reset": "hard",
+        "v_reset": 0.0,
+        "end_membrane_observed": true,
+        "neuron_updates_are_not_measured_SA_enables": true
+      },
+      "binary_input": true,
+      "counters": {
+        "fire": 8518949,
+        "neuron_updates": 339738624
+      },
+      "input_activity": null,
+      "firing_activity": 0.02507500883973675,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "fire": {
+          "mean": 29579.684027777777,
+          "p50": 29664.0,
+          "p95": 33196.0,
+          "p99": 34976.169999999984,
+          "minimum": 24260.0,
+          "maximum": 38883.0
+        },
+        "neuron_updates": {
+          "mean": 1179648.0,
+          "p50": 1179648.0,
+          "p95": 1179648.0,
+          "p99": 1179648.0,
+          "minimum": 1179648.0,
+          "maximum": 1179648.0
+        }
+      },
+      "simultaneous_per_step": {
+        "fire": {
+          "mean": 1848.730251736111,
+          "p50": 1764.0,
+          "p95": 3001.949999999999,
+          "p99": 3372.9300000000003,
+          "minimum": 834.0,
+          "maximum": 3708.0
+        },
+        "neuron_updates": {
+          "mean": 73728.0,
+          "p50": 73728.0,
+          "p95": 73728.0,
+          "p99": 73728.0,
+          "minimum": 73728.0,
+          "maximum": 73728.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.025075008839736748,
+        "p50": 0.008680555555555556,
+        "p95": 0.10894097222222222,
+        "p99": 0.208984375,
+        "minimum": 0.0,
+        "maximum": 0.5763888888888888
+      },
+      "silent_neuron_fraction": 0.0977511935763889
+    },
+    "backbone.16.excitatory": {
+      "role": "synapse",
+      "input_units": 18432,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 288,
+        "out_channels": 256,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.014155635610222816
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 4795883,
+        "addressed_terms": 9399740672,
+        "effective_nonzero_weight_terms": 9274508897
+      },
+      "input_activity": 0.056465561007276,
+      "firing_activity": null,
+      "SOP": 9399740672,
+      "effective_SOP": 9274508897,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 16652.371527777777,
+          "p50": 16841.0,
+          "p95": 19030.449999999997,
+          "p99": 19909.45,
+          "minimum": 12621.0,
+          "maximum": 20967.0
+        },
+        "addressed_terms": {
+          "mean": 32637988.444444444,
+          "p50": 32975360.0,
+          "p95": 37654284.8,
+          "p99": 39125053.44,
+          "minimum": 24373760.0,
+          "maximum": 40681984.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 32203155.892361112,
+          "p50": 32565569.0,
+          "p95": 37140282.0,
+          "p99": 38622696.15,
+          "minimum": 24030046.0,
+          "maximum": 40158196.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 1040.773220486111,
+          "p50": 1047.0,
+          "p95": 1383.6499999999996,
+          "p99": 1504.9300000000003,
+          "minimum": 317.0,
+          "maximum": 1765.0
+        },
+        "addressed_terms": {
+          "mean": 2039874.2777777778,
+          "p50": 2052480.0,
+          "p95": 2720153.5999999996,
+          "p99": 2991859.200000001,
+          "minimum": 612608.0,
+          "maximum": 3577600.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 2012697.2432725695,
+          "p50": 2025939.5,
+          "p95": 2680250.15,
+          "p99": 2948804.5,
+          "minimum": 595066.0,
+          "maximum": 3527389.0
+        }
+      }
+    },
+    "backbone.16.inhibitory": {
+      "role": "synapse",
+      "input_units": 18432,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Conv2d",
+        "in_channels": 288,
+        "out_channels": 256,
+        "kernel": [
+          3,
+          3
+        ],
+        "groups": 1,
+        "padding_excluded": true,
+        "weight_zero_fraction": 0.01449622679501772
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 4795883,
+        "addressed_terms": 9399740672,
+        "effective_nonzero_weight_terms": 9275076873
+      },
+      "input_activity": 0.056465561007276,
+      "firing_activity": null,
+      "SOP": 9399740672,
+      "effective_SOP": 9275076873,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 16652.371527777777,
+          "p50": 16841.0,
+          "p95": 19030.449999999997,
+          "p99": 19909.45,
+          "minimum": 12621.0,
+          "maximum": 20967.0
+        },
+        "addressed_terms": {
+          "mean": 32637988.444444444,
+          "p50": 32975360.0,
+          "p95": 37654284.8,
+          "p99": 39125053.44,
+          "minimum": 24373760.0,
+          "maximum": 40681984.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 32205128.03125,
+          "p50": 32513308.0,
+          "p95": 37126776.65,
+          "p99": 38610011.879999995,
+          "minimum": 24095135.0,
+          "maximum": 40104301.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 1040.773220486111,
+          "p50": 1047.0,
+          "p95": 1383.6499999999996,
+          "p99": 1504.9300000000003,
+          "minimum": 317.0,
+          "maximum": 1765.0
+        },
+        "addressed_terms": {
+          "mean": 2039874.2777777778,
+          "p50": 2052480.0,
+          "p95": 2720153.5999999996,
+          "p99": 2991859.200000001,
+          "minimum": 612608.0,
+          "maximum": 3577600.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 2012820.501953125,
+          "p50": 2025685.0,
+          "p95": 2685409.349999999,
+          "p99": 2945858.3200000003,
+          "minimum": 609282.0,
+          "maximum": 3521894.0
+        }
+      }
+    },
+    "backbone.18": {
+      "role": "neuron",
+      "input_units": 0,
+      "neuron_units": 16384,
+      "metadata": {
+        "kind": "ParametricLIFNode",
+        "reset": "hard",
+        "v_reset": 0.0,
+        "end_membrane_observed": true,
+        "neuron_updates_are_not_measured_SA_enables": true
+      },
+      "binary_input": true,
+      "counters": {
+        "fire": 409335,
+        "neuron_updates": 75497472
+      },
+      "input_activity": null,
+      "firing_activity": 0.005421837170918782,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "fire": {
+          "mean": 1421.3020833333333,
+          "p50": 1313.5,
+          "p95": 2514.2499999999995,
+          "p99": 3587.1799999999985,
+          "minimum": 477.0,
+          "maximum": 4716.0
+        },
+        "neuron_updates": {
+          "mean": 262144.0,
+          "p50": 262144.0,
+          "p95": 262144.0,
+          "p99": 262144.0,
+          "minimum": 262144.0,
+          "maximum": 262144.0
+        }
+      },
+      "simultaneous_per_step": {
+        "fire": {
+          "mean": 88.83138020833333,
+          "p50": 74.0,
+          "p95": 217.64999999999964,
+          "p99": 336.7900000000009,
+          "minimum": 0.0,
+          "maximum": 559.0
+        },
+        "neuron_updates": {
+          "mean": 16384.0,
+          "p50": 16384.0,
+          "p95": 16384.0,
+          "p99": 16384.0,
+          "minimum": 16384.0,
+          "maximum": 16384.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.005421837170918782,
+        "p50": 0.00043402777777777775,
+        "p95": 0.028862847222222224,
+        "p99": 0.06488715277777778,
+        "minimum": 0.0,
+        "maximum": 0.18663194444444445
+      },
+      "silent_neuron_fraction": 0.43603515625
+    },
+    "hidden_layers.hidden1": {
+      "role": "hidden",
+      "input_units": 1024,
+      "neuron_units": 1024,
+      "metadata": {
+        "kind": "WTAHidden",
+        "in_features": 1024,
+        "out_features": 1024,
+        "membrane_decay": 0.9,
+        "reset": "subtract",
+        "shadow_spikes_match": true,
+        "end_membrane_observed": true,
+        "weight_zero_fraction": 0.9223852157592773,
+        "competition_size": 16,
+        "winner_scope": "presentation",
+        "winner_gates_learning_only": true,
+        "membrane_units": "algorithmic; not RBL volts"
+      },
+      "binary_input": false,
+      "counters": {
+        "input_nonzero": 214794,
+        "fire": 616459,
+        "winner": 18238,
+        "addressed_terms": 219949056,
+        "effective_nonzero_weight_terms": 19749321,
+        "neuron_updates": 4718592
+      },
+      "input_activity": 0.045520782470703125,
+      "firing_activity": 0.13064469231499565,
+      "SOP": null,
+      "effective_SOP": null,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 745.8125,
+          "p50": 669.5,
+          "p95": 1423.1499999999996,
+          "p99": 1923.5399999999997,
+          "minimum": 205.0,
+          "maximum": 2306.0
+        },
+        "fire": {
+          "mean": 2140.4826388888887,
+          "p50": 2091.0,
+          "p95": 3085.499999999999,
+          "p99": 4016.119999999999,
+          "minimum": 1133.0,
+          "maximum": 4735.0
+        },
+        "winner": {
+          "mean": 63.326388888888886,
+          "p50": 64.0,
+          "p95": 64.0,
+          "p99": 64.0,
+          "minimum": 60.0,
+          "maximum": 64.0
+        },
+        "addressed_terms": {
+          "mean": 763712.0,
+          "p50": 685568.0,
+          "p95": 1457305.5999999996,
+          "p99": 1969704.9599999997,
+          "minimum": 209920.0,
+          "maximum": 2361344.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 68574.03125,
+          "p50": 63565.0,
+          "p95": 127114.09999999995,
+          "p99": 168648.58999999997,
+          "minimum": 17575.0,
+          "maximum": 196675.0
+        },
+        "neuron_updates": {
+          "mean": 16384.0,
+          "p50": 16384.0,
+          "p95": 16384.0,
+          "p99": 16384.0,
+          "minimum": 16384.0,
+          "maximum": 16384.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 46.61328125,
+          "p50": 38.0,
+          "p95": 118.0,
+          "p99": 166.0,
+          "minimum": 0.0,
+          "maximum": 257.0
+        },
+        "fire": {
+          "mean": 133.78016493055554,
+          "p50": 133.0,
+          "p95": 252.0,
+          "p99": 344.9300000000003,
+          "minimum": 0.0,
+          "maximum": 520.0
+        },
+        "winner": {
+          "mean": 3.9578993055555554,
+          "p50": 0.0,
+          "p95": 29.0,
+          "p99": 54.0,
+          "minimum": 0.0,
+          "maximum": 60.0
+        },
+        "addressed_terms": {
+          "mean": 47732.0,
+          "p50": 38912.0,
+          "p95": 120832.0,
+          "p99": 169984.0,
+          "minimum": 0.0,
+          "maximum": 263168.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 4285.876953125,
+          "p50": 3626.0,
+          "p95": 10453.0,
+          "p99": 13896.590000000018,
+          "minimum": 0.0,
+          "maximum": 20387.0
+        },
+        "neuron_updates": {
+          "mean": 1024.0,
+          "p50": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0,
+          "minimum": 1024.0,
+          "maximum": 1024.0
+        }
+      },
+      "per_neuron_firing_activity": {
+        "mean": 0.13064469231499565,
+        "p50": 0.021809895833333332,
+        "p95": 0.673828125,
+        "p99": 0.7502842881944445,
+        "minimum": 0.0008680555555555555,
+        "maximum": 0.8211805555555556
+      },
+      "silent_neuron_fraction": 0.0,
+      "representative_traces": [
+        {
+          "quantile_target": 0,
+          "target_input_nonzero": 205.0,
+          "sample_index": 98,
+          "view": 0,
+          "actual_input_nonzero": 277,
+          "path": "hidden_layers_hidden1_representative_q0.npz",
+          "selection": "nearest among deterministic 1-percent activity-bin representatives"
+        },
+        {
+          "quantile_target": 0.5,
+          "target_input_nonzero": 669.5,
+          "sample_index": 1,
+          "view": 0,
+          "actual_input_nonzero": 694,
+          "path": "hidden_layers_hidden1_representative_q0.5.npz",
+          "selection": "nearest among deterministic 1-percent activity-bin representatives"
+        },
+        {
+          "quantile_target": 0.95,
+          "target_input_nonzero": 1423.1499999999996,
+          "sample_index": 213,
+          "view": 0,
+          "actual_input_nonzero": 1497,
+          "path": "hidden_layers_hidden1_representative_q0.95.npz",
+          "selection": "nearest among deterministic 1-percent activity-bin representatives"
+        },
+        {
+          "quantile_target": 1,
+          "target_input_nonzero": 2306.0,
+          "sample_index": 211,
+          "view": 0,
+          "actual_input_nonzero": 2306,
+          "path": "hidden_layers_hidden1_representative_q1.npz",
+          "selection": "nearest among deterministic 1-percent activity-bin representatives"
+        }
+      ],
+      "full_trace_format": {
+        "bitorder": "little",
+        "order": "sample, view, step, packed units",
+        "output_units": 1024,
+        "input_units": null
+      }
+    },
+    "classifier": {
+      "role": "synapse",
+      "input_units": 1024,
+      "neuron_units": 0,
+      "metadata": {
+        "kind": "Linear",
+        "in_features": 1024,
+        "out_features": 11,
+        "weight_zero_fraction": 0.09090909361839294
+      },
+      "binary_input": true,
+      "counters": {
+        "input_nonzero": 616459,
+        "addressed_terms": 6781049,
+        "effective_nonzero_weight_terms": 6164590
+      },
+      "input_activity": 0.13064469231499565,
+      "firing_activity": null,
+      "SOP": 6781049,
+      "effective_SOP": 6164590,
+      "hardware_RST_count": null,
+      "measured_energy_pJ": null,
+      "measured_power_W": null,
+      "per_sample": {
+        "input_nonzero": {
+          "mean": 2140.4826388888887,
+          "p50": 2091.0,
+          "p95": 3085.499999999999,
+          "p99": 4016.119999999999,
+          "minimum": 1133.0,
+          "maximum": 4735.0
+        },
+        "addressed_terms": {
+          "mean": 23545.309027777777,
+          "p50": 23001.0,
+          "p95": 33940.49999999999,
+          "p99": 44177.31999999999,
+          "minimum": 12463.0,
+          "maximum": 52085.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 21404.82638888889,
+          "p50": 20910.0,
+          "p95": 30854.999999999993,
+          "p99": 40161.19999999999,
+          "minimum": 11330.0,
+          "maximum": 47350.0
+        }
+      },
+      "simultaneous_per_step": {
+        "input_nonzero": {
+          "mean": 133.78016493055554,
+          "p50": 133.0,
+          "p95": 252.0,
+          "p99": 344.9300000000003,
+          "minimum": 0.0,
+          "maximum": 520.0
+        },
+        "addressed_terms": {
+          "mean": 1471.581814236111,
+          "p50": 1463.0,
+          "p95": 2772.0,
+          "p99": 3794.230000000003,
+          "minimum": 0.0,
+          "maximum": 5720.0
+        },
+        "effective_nonzero_weight_terms": {
+          "mean": 1337.8016493055557,
+          "p50": 1330.0,
+          "p95": 2520.0,
+          "p99": 3449.300000000003,
+          "minimum": 0.0,
+          "maximum": 5200.0
+        }
+      }
+    }
+  }
+}

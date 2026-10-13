@@ -9,8 +9,23 @@ __pycache__/
 *.ckpt
 *.safetensors
 /datasets/
+/datasets_full/
 /migration/downloads/
 /migration/WINDOWS_RECEIPT.json
-/results/new_runs/
+/results/new_runs/*
+!/results/new_runs/spike_activity_20261012/
+/results/new_runs/spike_activity_20261012/*
+!/results/new_runs/spike_activity_20261012/final/
+/migration/releases/
+/migration/reorganize_20261013/work/
+/migration/reorganize_20261013/transfer/
+/migration/reorganize_20261013/*.log
+/.runtime/
+/migration/ENVIRONMENT_RESTORE_RECEIPT.json
+# Retain the published models that fit GitHub's ordinary 100 MiB file limit.
+!/results/accuracy/compression_3to5M_20261006_selected/conditions/*/best.pth
+!/results/accuracy/stdp_lut_optimization_20261007_final/conditions/*/best.pth
+!/results/accuracy/stdp_lut_optimization_20261007_final/conditions/CIFAR10DVS/TRAIN_moments.pth
+!/results/accuracy/stdp_lut_optimization_20261007_final/conditions/CIFAR10DVS/quantizer_settings.pth
 .DS_Store
 Thumbs.db

@@ -1,0 +1,249 @@
+{
+  "verified_payload_files": 850,
+  "checkpoint_checks": [
+    {
+      "bundle": "original",
+      "dataset": "MNIST",
+      "parameters": 46142479,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "scheduler",
+        "epoch",
+        "best_validation_accuracy",
+        "history",
+        "metadata",
+        "rng",
+        "loader_rng",
+        "monitoring_state"
+      ],
+      "selected_epoch_or_block": 23,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "original",
+      "dataset": "NMNIST",
+      "parameters": 46143631,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "scheduler",
+        "epoch",
+        "best_validation_accuracy",
+        "history",
+        "metadata",
+        "rng",
+        "loader_rng",
+        "monitoring_state"
+      ],
+      "selected_epoch_or_block": 18,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "original",
+      "dataset": "CIFAR10DVS",
+      "parameters": 46184591,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "scheduler",
+        "epoch",
+        "best_validation_accuracy",
+        "history",
+        "metadata",
+        "rng",
+        "loader_rng",
+        "monitoring_state"
+      ],
+      "selected_epoch_or_block": 4,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "original",
+      "dataset": "DVSGesture",
+      "parameters": 30450064,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "metadata",
+        "epoch",
+        "best_validation_accuracy"
+      ],
+      "selected_epoch_or_block": -1,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "MNIST",
+      "parameters": 4452879,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "epoch",
+        "best_key",
+        "best_epoch",
+        "config",
+        "validation"
+      ],
+      "selected_epoch_or_block": 10,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "NMNIST",
+      "parameters": 4453455,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "epoch",
+        "best_key",
+        "best_epoch",
+        "config",
+        "validation"
+      ],
+      "selected_epoch_or_block": 6,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "CIFAR10DVS",
+      "parameters": 4717903,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "epoch",
+        "best_key",
+        "best_epoch",
+        "config",
+        "validation"
+      ],
+      "selected_epoch_or_block": 3,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "compressed",
+      "dataset": "DVSGesture",
+      "parameters": 4456656,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "epoch",
+        "best_key",
+        "best_epoch",
+        "config",
+        "validation"
+      ],
+      "selected_epoch_or_block": 16,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "MNIST",
+      "parameters": 4452879,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "block",
+        "validation",
+        "rng",
+        "train_loader_rng",
+        "trace_rng"
+      ],
+      "selected_epoch_or_block": 0,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "NMNIST",
+      "parameters": 4453455,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "block",
+        "validation",
+        "rng",
+        "train_loader_rng",
+        "trace_rng"
+      ],
+      "selected_epoch_or_block": 0,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "CIFAR10DVS",
+      "parameters": 4679375,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "block",
+        "validation",
+        "rng",
+        "train_loader_rng",
+        "trace_rng"
+      ],
+      "selected_epoch_or_block": 1,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    },
+    {
+      "bundle": "lut_final",
+      "dataset": "DVSGesture",
+      "parameters": 4456656,
+      "strict_state_load": true,
+      "frozen_imports": true,
+      "physical_weights_nonnegative": true,
+      "checkpoint_keys": [
+        "model",
+        "optimizer",
+        "block",
+        "validation",
+        "rng",
+        "train_loader_rng",
+        "trace_rng"
+      ],
+      "selected_epoch_or_block": 0,
+      "full_TEST_performed": false,
+      "new_training_steps": 0
+    }
+  ],
+  "full_TEST_performed": false,
+  "new_training_steps": 0
+}

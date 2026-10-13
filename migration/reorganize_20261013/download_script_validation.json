@@ -1,0 +1,10 @@
+{
+  "parser_and_execution": "passed",
+  "interrupted_transfer_preserves_verified_chunks": true,
+  "resumed_transfer_skips_verified_chunks": true,
+  "verified_archives_reused": true,
+  "corrupted_extracted_file_repaired": true,
+  "verified_payload_files": 2,
+  "platform": "Ubuntu 20.04.4 LTS",
+  "scope": "Local mocked SCP integration; not actual Windows receipt"
+}

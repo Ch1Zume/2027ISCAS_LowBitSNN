@@ -1,0 +1,10 @@
+{
+  "python": "3.10.20 | packaged by conda-forge | (main, Jun 11 2026, 03:31:56) [GCC 14.3.0]",
+  "torch": "2.7.1+cu126",
+  "torchvision": "0.22.1+cpu",
+  "spikingjelly": "0.0.0.0.14",
+  "numpy": "2.2.6",
+  "matplotlib": "3.10.8",
+  "cuda_runtime": "12.6",
+  "execution": "GPU full-TEST; shared torch, isolated local SNN dependencies"
+}

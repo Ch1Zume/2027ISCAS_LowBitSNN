@@ -1,183 +1,157 @@
-# SNNCIM 迁移与复原手册
+# SNNCIM 完整项目整理与恢复手册（2026-10-13）
 
-## 1. 交付内容
+## 本次版本与保留范围
 
-本次只迁移 `/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm`。
-代码仓库为 `Ch1Zume/2027ISCAS_LowBitSNN`，迁移分支为 `codex/migration-20261011`。
+仓库：https://github.com/Ch1Zume/2027ISCAS_LowBitSNN ，使用默认 `main` 分支。
+上次最终代码只在 `codex/migration-20261011`，默认分支没有同步；本次将最终版本
+更新到默认分支，并纳入 2026-10-12 的全部正式脉冲活动结果。
 
-| 文件 | 用途 |
+服务器项目：`/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm`。
+本次保留全部现有数据集、原始归档、未完成下载分片、frame 缓存、Python 缓存、
+`.venv`、其外部 Conda 基础环境，以及三套最终模型/冻结 runtime。只清理过期
+`pilot`、`validation_v1`、外围中间日志和上次交付包。清单见
+`reorganize_20261013/cleanup_audit.json`。历史校验清单保留于 `history/20261011/`。
+
+| 保存位置 | 内容 |
 |---|---|
-| SNN-code-20261011.zip | 最终代码、配置、表格、审计、冻结 runtime 和本手册 |
-| SNN-models-20261011.zip | 十二个最终 checkpoint 及 CIFAR 校准统计/量化设置 |
-| SNN-git-20261011.bundle | Git 仓库离线副本，可离线克隆迁移分支及其历史 |
-| SHA256SUMS | 以上交付文件的 SHA256 |
-| download.ps1 | 从 IMECAS-yufan 下载到 Windows 并解压、校验 |
+| GitHub main | 代码、配置、冻结 runtime、最终表格、全部活动结果/序列/图表、十个小于 100 MiB 的模型/校准文件、手册与审计 |
+| SNN-large-models-20261013.tar.gz | 四个超过普通 GitHub 单文件限制的 original checkpoint |
+| SNN-data-数据集名-20261013.tar.gz | 对应数据集全部现存文件，包括缓存和未完成下载 |
+| SNN-project-caches-20261013.tar.gz | 项目 Python/pytest 缓存 |
+| SNN-runtime-base-20261013.tar.gz | 当前 `.venv` 所依赖的 Linux Conda 基础环境，使用 conda-pack 制作 |
+| SNN-runtime-overlay-20261013.tar.gz | 当前 `.venv` 的附加包与原始环境文件 |
+| SNN-project-20261013.zip / SNN-git-20261013.bundle | GitHub 同一提交的方便下载副本 / 离线 Git 副本 |
 
-两个 ZIP 均以 `Algorithm/` 为顶层目录，解压到同一父目录即可合并。模型包不
-包含数据集。不要修改冻结 checkpoint、config 和 runtime；未来输出使用新的
-`results/new_runs/` 目录。最终成绩和条件见 `FINAL_RESULTS.csv` 与 `catalog.json`。
+交付目录为服务器 `migration/releases/20261013/`。`DOWNLOAD_INDEX.json` 记录
+Git 提交、每个包及每个 512 MiB 分片的 SHA256；`PAYLOAD_FILES.json` 记录项目、
+模型、数据和缓存的逐文件 SHA256。运行环境先按归档校验，再在 Linux 验证。
 
-## 2. 下载到 Windows
+## 下载到 E:\IMECAS_SNN
 
-电脑端目标为 `E:\IMECAS_SNN`。在 Windows PowerShell 中执行：
+在你的 Windows PowerShell 中执行以下三行。使用已配置的 SSH 别名：
 
 ```powershell
 New-Item -ItemType Directory -Force -Path 'E:\IMECAS_SNN' | Out-Null
-scp 'IMECAS-yufan:/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/migration/downloads/download.ps1' 'E:\IMECAS_SNN\download.ps1'
-& 'E:\IMECAS_SNN\download.ps1'
+scp 'IMECAS-yufan:/home/zhangyufan/Project/1_2026Q3_T22_SNNCIM/2_Ruiqi/Algorithm/migration/releases/20261013/download.ps1' 'E:\IMECAS_SNN\download-20261013.ps1'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'E:\IMECAS_SNN\download-20261013.ps1'
 ```
 
-如果当前 PowerShell 执行策略拒绝本地脚本，可仅针对此次进程运行：
+没有 SSH 别名时，将第一次 `scp` 的 `IMECAS-yufan` 换成
+`zhangyufan@100.102.159.102`，并在最后一行加
+`-Server 'zhangyufan@100.102.159.102'`。需要电脑已能访问这台服务器。
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'E:\IMECAS_SNN\download.ps1'
-```
+结果位置：
 
-SSH 别名若未配置，使用实际地址：
+- 项目：`E:\IMECAS_SNN\20261013\Algorithm`
+- 下载包：`E:\IMECAS_SNN\20261013\archives`
+- 接收回执：`E:\IMECAS_SNN\20261013\WINDOWS_RECEIPT.json`
 
-```powershell
-& 'E:\IMECAS_SNN\download.ps1' -Server 'zhangyufan@100.102.159.102'
-```
+使用日期目录避免覆盖旧项目。脚本每次刷新下载索引，跳过已验证的包/分片；
+中断后重新执行同一个脚本即可。完整包通过校验后才删除冗余传输分片。
+脚本解压代码、模型、数据和项目缓存，并逐文件校验。Linux 环境包在 Windows
+保留为归档，避免符号链接和权限丢失。成功回执也会尝试传回服务器。
 
-脚本使用已有 OpenSSH 身份验证，不保存密码或私钥。已存在且哈希正确的 ZIP
-会跳过下载；中断后重新执行即可。全部包与解压后每个保留文件都校验通过后，
-生成 `E:\IMECAS_SNN\Algorithm\migration\WINDOWS_RECEIPT.json`。
+服务器上的打包/模拟接收验证不代表 Windows 已收到。只有上述 Windows 回执
+证明电脑端实际完成下载。该回执不代表电脑已执行 CUDA 或完整 TEST。
 
-服务器会保留最终交付包。只有电脑端生成成功回执并确认备份后，才适合删除
-服务器上的最终副本。当前会话无法直接写入 Windows 的 E: 盘，下载脚本须在
-电脑上运行；服务器生成 ZIP 不等于电脑端已收到。
+## 在新 Linux 主机或 WSL2 恢复
 
-## 3. 放到新 Linux 服务器
+离线环境包适用于兼容的 **Linux x86_64**，不能直接作为 Windows 原生 Python
+使用。GPU 驱动不在包中；完整 TEST 需要可用的 NVIDIA GPU/CUDA 驱动。
+WSL2 建议把运行目录放到 Linux 文件系统，Windows E 盘作为交付包保存位置。
 
-推荐目录 `/srv/projects/Algorithm`，也可以用用户有写权限的其它目录。
-
-联网恢复：
+可以直接使用解压后的 `Algorithm`，或者从 GitHub 获取：
 
 ```bash
-cd /srv/projects
-git clone --branch codex/migration-20261011 git@github.com:Ch1Zume/2027ISCAS_LowBitSNN.git Algorithm
-unzip /path/to/SNN-models-20261011.zip -d /srv/projects
-cd Algorithm
+git clone --branch main git@github.com:Ch1Zume/2027ISCAS_LowBitSNN.git Algorithm
 ```
 
-无需 GitHub 的离线恢复：
+完全离线时：
 
 ```bash
-cd /srv/projects
-git clone --branch codex/migration-20261011 /path/to/SNN-git-20261011.bundle Algorithm
-unzip /path/to/SNN-models-20261011.zip -d /srv/projects
-cd Algorithm
+git clone --branch main /path/to/archives/SNN-git-20261013.bundle Algorithm
 ```
 
-也可直接解压两个 ZIP 到同一父目录。这种方式可运行项目，但不包含 `.git`。
-迁移上传的提交号以交付目录 `delivery_status.json` 为准。解压前可使用
-`sha256sum -c SHA256SUMS` 检查包文件。
-
-## 4. 重建环境
-
-实测原环境：Python 3.10.20、torch 2.7.1+cu126、torchvision 0.22.1+cpu、
-SpikingJelly 0.0.0.0.14；GPU 为 RTX 4090，驱动 565.57.01。完整版本快照见
-`environment_snapshot.json`。旧 `.venv` 指向旧服务器 Conda，不可直接搬走。
-
-在新服务器安装 Python 3.10 后，在项目根目录创建环境：
+假设新项目为 `/srv/projects/Algorithm`，把六个模型/数据/缓存包解压到父目录
+`/srv/projects`（这些包内部带有 `Algorithm/` 前缀）。已有 Windows 脚本解压结果
+可直接复制，无需重复解压。不要把 runtime 包当成这些 payload 包解压。
 
 ```bash
-python3.10 -m venv .venv
-source .venv/bin/activate
-python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu126
-python -m pip install torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cpu --no-deps
-python -m pip install -r requirements-accuracy.txt
-python -m pip install pytest==8.4.2
-python -c 'import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available())'
-python migration/verify.py --checkpoints --out /tmp/snn_restore_checkpoint_check.json
+python3 Algorithm/migration/verify_delivery.py --project Algorithm --manifest /path/to/archives/PAYLOAD_FILES.json
+python3 Algorithm/migration/restore_environment.py --project Algorithm --archives /path/to/archives --require-cuda
 ```
 
-主环境需要 CUDA 可用才能做完整 TEST；CPU 检查仅验证导入、结构和权重加载，
-不构成精度重放。不同 GPU、驱动或库版本可能改变浮点 loss。默认严格重放会
-保存差异并停止；不能将这种情况报为精确复现。
+先校验、后运行，因为 Python/pytest 缓存会在执行后正常改变。环境恢复脚本会
+解压基础环境到 `Algorithm/.runtime/base`，执行 conda-unpack，再恢复 `.venv`
+附加包并重建启动路径。它拒绝覆盖已有 `.venv` 或 `.runtime/base`，因此不会
+损坏源服务器正在使用的环境。必须在最终运行路径执行恢复，完成后不要直接
+移动环境；需要移动时从归档重新恢复。
 
-## 5. 重建数据集
-
-原数据集、下载归档、解压副本和 frame 缓存已按要求排除。保留的
-`dataset_sources.json` 包含实际使用过的资源地址及 MD5；`dataset_splits/`
-保存划分索引，`event_file_order.json` 保存事件样本文件名顺序，不含样本数据。
+恢复结果保存于 `migration/ENVIRONMENT_RESTORE_RECEIPT.json`，含实际包版本、
+加载路径及 CUDA 可用性。以项目 Python 执行后续操作：
 
 ```bash
-python migration/prepare_datasets.py --dataset MNIST --data-dir ./datasets --download
-python migration/prepare_datasets.py --dataset NMNIST --data-dir ./datasets --download
-python migration/prepare_datasets.py --dataset CIFAR10DVS --data-dir ./datasets --download
-python migration/prepare_datasets.py --dataset DVSGesture --data-dir ./datasets --download
+cd /srv/projects/Algorithm
+TMPDIR=/tmp .venv/bin/python migration/verify.py --checkpoints --out /tmp/snn_checkpoint_verify_NEW.json
 ```
 
-资源地址是迁移时保留的历史来源，不保证未来持续可下载。如果作者网站需要
-人工下载，按 `dataset_sources.json` 的名称放到 `datasets/<数据集>/download/`，
-再执行相同命令并去掉 `--download`。脚本先检查归档 MD5，再用同一版本适配器
-重建事件数据、按事件数量切成原生 16 帧。运行时相邻合并成所需 T，并按原配置
-做 log1p/分辨率调整。MNIST 使用原 Poisson 图像编码；三个事件数据集为
-event-count frames, split by event number, with log1p compression。
+源环境版本为 Python 3.10.20、torch 2.7.1+cu126、torchvision 0.22.1+cpu、
+SpikingJelly 0.0.0.0.14。完整版本及包位置见 `reorganize_20261013/environment.json`。
+只复制旧 `.venv` 不够，因为它依赖外部 Conda；本交付同时保存了两部分。
 
-数据重建后必须匹配样本名称、类别顺序和划分 SHA256。CIFAR TEST 为 1000，
-MNIST/NMNIST 为 10000，Gesture 为 288。数据路径可放到单独大盘并通过
-`--data-dir /path/to/datasets` 指定。恢复源归档后临时空间需求可能超过原先
-约 49 GiB 的存量，需为下载、解压与 frame 生成留空间。
+## 立即重放完整 TEST 与活动统计
 
-## 6. 重放最终完整 TEST
+当前保留数据可支持 MNIST/N-MNIST/CIFAR10-DVS/DVSGesture 全部 TEST。事件数据
+使用冻结样本顺序和 event-count frames，按事件数量分帧并做 log1p 压缩。
+保留的完整 TEST 数量分别为 10000、10000、1000、288。
 
 ```bash
-python migration/replay.py --bundle lut_final --dataset MNIST --data-dir ./datasets --out /tmp/replay_MNIST_NEW.json
-python migration/replay.py --bundle lut_final --dataset NMNIST --data-dir ./datasets --out /tmp/replay_NMNIST_NEW.json
-python migration/replay.py --bundle lut_final --dataset CIFAR10DVS --data-dir ./datasets --out /tmp/replay_CIFAR10DVS_NEW.json
-python migration/replay.py --bundle lut_final --dataset DVSGesture --data-dir ./datasets --out /tmp/replay_DVSGesture_NEW.json
+TMPDIR=/tmp .venv/bin/python experiments/power/run_activity.py --out results/new_runs/activity_replay_NEW
+TMPDIR=/tmp MPLCONFIGDIR=/tmp/snn-mpl .venv/bin/python experiments/power/report_activity.py --out results/new_runs/activity_replay_NEW
+TMPDIR=/tmp .venv/bin/python experiments/power/export_stimuli.py --out results/new_runs/activity_replay_NEW --precision uint4
+TMPDIR=/tmp .venv/bin/python experiments/power/export_stimuli.py --out results/new_runs/activity_replay_NEW --precision uint2
 ```
 
-一次一个数据集，三个精度模式全部评测。若要检查原大模型或压缩基线，将
-`--bundle` 改为 `original` 或 `compressed`。脚本验证全部迁移保留文件哈希、
-冻结源码来源、严格 state_dict 加载、物理参数量、非负物理权重、数据划分、
-完整 TEST 样本数及推理状态不变。CIFAR LUT 使用两个独立重置的视图与原校准
-统计；不会重新校准或重新训练。
+一次重放四个数据集、三种精度，使用冻结模型且不训练/重新校准。新输出必须放
+新目录。完整分数字典、计数及状态对照见各条件 `summary.json`；不同 GPU/软件
+版本可能导致 loss 浮点差异，应分别报告正确数一致和完全精确重放。
 
-默认要求整个分数字典精确相同。若新 GPU 只导致 loss 漂移，可另建输出路径并
-显式加 `--comparison counts`；此模式仍要求三种精度的正确数和样本数全部相同，
-会记录 `exact_full_test_replay: false`，不能当作精确复现。新训练的基线验证若只存在此类 loss 漂移，可显式使用 `migration/train.py --baseline-comparison counts`。
+现有正式输出在 `results/new_runs/spike_activity_20261012/final/`；画图、审计和
+使用导出的刺激不需要重跑模型。该目录的冻结源码快照和历史校验不改写。
 
-## 7. 从最终模型开始新训练
+WTA 口径：冻结模型只让 winner 获得学习资格，保留全部阈值发放；其 16.1092%
+输入活动率与 10.7842% 发放率对应 N-MNIST uint4 的 512×512 hidden2。
+它们不是硬 WTA 的单 winner 输出，也不是实测复位或功耗。逻辑时间步到芯片
+周期的映射仍未确认；本次不报告 MHz、实际 RST、pJ/SOP 或面积。
 
-先完成数据重建和 CUDA 检查，再运行：
+## 新训练与完整数据准备
+
+“保留现有数据”不等于恢复上次已删除的全部训练数据。目前 MNIST 有训练原始
+文件，三个事件数据集主要是本次恢复的完整 TEST；下载分片也全部保留。进行
+TRAIN/VALID 或旧通用数据加载路径的评测前，在独立目录准备完整数据。原适配器
+可能把已有的 TEST-only frame 目录当作完整缓存，因此不要对当前 `datasets`
+直接运行完整数据准备，也不要删除现存缓存来绕过它：
 
 ```bash
-python migration/train.py --dataset CIFAR10DVS --mode warm-start-final --epochs 6 --data-dir ./datasets --out results/new_runs/CIFAR_restart_NEW
+TMPDIR=/tmp .venv/bin/python migration/prepare_datasets.py --dataset NMNIST --data-dir ./datasets_full --download
 ```
 
-这会检查完整性、重放压缩基线、重新生成 TRAIN-only 原教师缓存，再从最终
-CIFAR 模型权重开始新的 TRAIN/VALID，使用新优化器。新 run 保存启动参数、
-学习 RNG 和选择记录；完整 VALID 选定后 TEST 保持 deferred。其它数据集只需
-替换 `--dataset`。教师缓存是可重建中间文件，不需要从旧服务器迁移。
-
-从头训练新的 CIFAR 空间模型：
+按需把数据集名替换为 MNIST、CIFAR10DVS 或 DVSGesture。准备脚本使用保存的
+官方资源和冻结划分，不更改最终模型。完成数据准备后，可运行：
 
 ```bash
-python migration/train.py --dataset CIFAR10DVS --mode from-scratch --epochs 40 --data-dir ./datasets --out results/new_runs/CIFAR_scratch_NEW
+TMPDIR=/tmp .venv/bin/python migration/train.py --dataset CIFAR10DVS --mode warm-start-final --epochs 6 --data-dir ./datasets_full --out results/new_runs/CIFAR_restart_NEW
 ```
 
-这是相同方案的新训练，不能承诺单种子历史分数完全重现。既有 40 个从头训练
-epoch 与后续 6 个微调 epoch 分开登记；MNIST/NMNIST/Gesture 的最终 LUT 优化
-选中 epoch=0，不宣称由新增 LUT 学习提升。发布权重用于重放；新训练结果需在
-VALID 冻结后重新完成全 TEST，不能复用历史表格。
+这是从最终权重开始的新训练，会创建新优化器；不代表原训练无缝续跑，也不承诺
+复现相同单种子分数。TRAIN-only 缓存按需生成，新 VALID 选定后再做新的 TEST。
+`migration/replay.py` 保留原有完整数据适配器入口；现有 TEST-only 数据的直接
+重放请使用上面的 `experiments/power/run_activity.py`。
 
-完成新 run 的 VALID 冻结后，可以用其冻结驱动评测新候选：
+## 校验边界
 
-```bash
-SNN_PROJECT_ROOT="$PWD" SNN_DATA_DIR="$PWD/datasets" SNN_TEACHER_CACHE_DIR="$PWD/results/new_runs/CIFAR_restart_NEW/teacher_cache" python results/new_runs/CIFAR_restart_NEW/run_frozen.py --out results/new_runs/CIFAR_restart_NEW --dataset CIFAR10DVS --condition lut_native_trace --test-only --spatial-student
-```
-
-这个新 run 的 TEST 使用训练驱动原始单视图/absmax 量化设置，未包含发布 LUT
-最终版的双视图或 PTQ 校准；要比较发布条件，应另行执行保留的
-`experiments/stdp/cifar_views.py` 与 `calibrate_quantization.py`，固定 VALID
-选定设置后再完整 TEST。运行中断的重启语义见 `BREAKPOINT.md`。
-
-## 8. 迁移验收边界
-
-服务器完成的校验只说明交付包完整、最终模型可以加载及代码回归通过。
-历史完整 TEST 及精确重放证据原样保留；本次迁移不会将 CPU 检查当成新精度结果。
-Windows 收到并通过 SHA256、在新服务器重建数据且完成完整 TEST 重放，是后续
-两项验收。不要在电脑端收到之前删除服务器最终包。
+`reorganize_20261013/` 保存清理、环境快照、归档成员清单及恢复验证证据。
+`migration/payload_manifest.json` 验证核心项目与最终模型；交付目录中的
+`PAYLOAD_FILES.json` 额外覆盖数据与项目缓存。历史 checkpoint/runtime 和正式
+活动证据保持原字节。Windows 接收、环境可运行和完整 TEST 是三个不同验收项，
+必须分别查看对应证据。

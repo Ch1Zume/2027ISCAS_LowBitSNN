@@ -1,0 +1,43 @@
+{
+  "archive": "SNN-data-MNIST-20261013.tar.gz",
+  "archive_sha256": "41c885d427dbd5d9f263fc3134cabd5a0ee85a59c876f75e484adbc4337835df",
+  "sha256_scope": "original extracted files",
+  "files": {
+    "datasets/MNIST/MNIST/raw/t10k-images-idx3-ubyte": {
+      "bytes": 7840016,
+      "sha256": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7"
+    },
+    "datasets/MNIST/MNIST/raw/t10k-images-idx3-ubyte.gz": {
+      "bytes": 1648877,
+      "sha256": "8d422c7b0a1c1c79245a5bcf07fe86e33eeafee792b84584aec276f5a2dbc4e6"
+    },
+    "datasets/MNIST/MNIST/raw/t10k-labels-idx1-ubyte": {
+      "bytes": 10008,
+      "sha256": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+    },
+    "datasets/MNIST/MNIST/raw/t10k-labels-idx1-ubyte.gz": {
+      "bytes": 4542,
+      "sha256": "f7ae60f92e00ec6debd23a6088c31dbd2371eca3ffa0defaefb259924204aec6"
+    },
+    "datasets/MNIST/MNIST/raw/train-images-idx3-ubyte": {
+      "bytes": 47040016,
+      "sha256": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db"
+    },
+    "datasets/MNIST/MNIST/raw/train-images-idx3-ubyte.gz": {
+      "bytes": 9912422,
+      "sha256": "440fcabf73cc546fa21475e81ea370265605f56be210a4024d2ca8f203523609"
+    },
+    "datasets/MNIST/MNIST/raw/train-labels-idx1-ubyte": {
+      "bytes": 60008,
+      "sha256": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5"
+    },
+    "datasets/MNIST/MNIST/raw/train-labels-idx1-ubyte.gz": {
+      "bytes": 28881,
+      "sha256": "3552534a0a558bbed6aed32b30c495cca23d567ec52cac8be1a0730e8010255c"
+    },
+    "datasets/MNIST/TEST_manifest.json": {
+      "bytes": 170768,
+      "sha256": "d7f0b60263acd6c59876373c1f3183b5722d120898de4cfc9d537330f10703c8"
+    }
+  }
+}

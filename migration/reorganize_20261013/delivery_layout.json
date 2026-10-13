@@ -1,0 +1,41 @@
+{
+  "archives": [
+    {
+      "name": "SNN-data-CIFAR10DVS-20261013.tar.gz",
+      "bytes": 3381936200
+    },
+    {
+      "name": "SNN-data-DVSGesture-20261013.tar.gz",
+      "bytes": 6666492541
+    },
+    {
+      "name": "SNN-data-MNIST-20261013.tar.gz",
+      "bytes": 24476296
+    },
+    {
+      "name": "SNN-data-NMNIST-20261013.tar.gz",
+      "bytes": 381328173
+    },
+    {
+      "name": "SNN-large-models-20261013.tar.gz",
+      "bytes": 583430647
+    },
+    {
+      "name": "SNN-project-caches-20261013.tar.gz",
+      "bytes": 444699
+    },
+    {
+      "name": "SNN-runtime-base-20261013.tar.gz",
+      "bytes": 3404304044
+    },
+    {
+      "name": "SNN-runtime-overlay-20261013.tar.gz",
+      "bytes": 89976887
+    }
+  ],
+  "compressed_payload_bytes": 14532389487,
+  "source_archive_and_git_bundle_added_after_final_commit": true,
+  "windows_destination": "E:\\IMECAS_SNN\\20261013",
+  "github_branch": "main",
+  "windows_receipt": "pending client execution"
+}

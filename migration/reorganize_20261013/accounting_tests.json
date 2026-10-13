@@ -1,0 +1,5 @@
+{
+  "command": "python -m pytest experiments/power/test_activity.py -q",
+  "passed": 3,
+  "scope": "padding/zero-weight addressed SOP, WTA learning gate vs firing, nonbinary input accounting"
+}

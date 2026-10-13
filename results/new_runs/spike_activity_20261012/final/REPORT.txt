@@ -1,0 +1,45 @@
+SNN inference activity for neuron power characterization
+
+Completed conditions: 12; pending: none
+Primary: frozen lut_final N-MNIST, hidden2, 512 inputs x 512 neurons, uint4, full 10000 TEST samples.
+Each sample has 4 logical steps. State is cleared at the sample boundary. No training or calibration.
+
+Primary measured algorithmic activity:
+Input spike probability per row per logical step: 0.161092041016 (16.109204%).
+Firing probability per neuron per logical step: 0.107841943359 (10.784194%).
+Total input spikes: 3299165; total output spikes: 2208603.
+Addressed SOPs including zero weights: 1689172480; nonzero-weight effective SOPs: 54215782.
+Mean input spikes/inference: 329.916500.
+Mean output spikes/inference: 220.860300.
+P95 output spikes/inference: 525.000000.
+Silent-neuron fraction over full TEST: 0.000000.
+
+Timing is unconfirmed by the user. Report logical-step activity; hardware Hz are not calculated.
+A future Hz conversion requires actual scheduling, active time and idle time.
+
+Use in circuit simulations:
+1. Use exact hidden2 input/output bit traces, frozen uint weight codes, per-neuron scales/biases/thresholds.
+2. Preserve 4-step sample boundaries; replay many full samples instead of extending one sample.
+3. Characterize columns across firing and weight distributions; one average column is not sufficient.
+4. Software subtractive reset is counted separately from initialization and remaining membrane state.
+5. Verify circuit reset/threshold/scale/bias behavior before treating these traces as physical RST events.
+6. Integrate supplies over the complete physical window, including final restoration and peripheral costs.
+
+Supplemental conditions:
+MNIST hidden_layers.hidden1: input activity 2.679305%, firing activity 20.742383%; input kind binary_spikes.
+MNIST hidden_layers.hidden2: input activity 20.742383%, firing activity 21.141367%; input kind binary_spikes.
+CIFAR10DVS hidden_layers.hidden1: input activity 6.787974%, firing activity 51.870093%; input kind binary_spikes.
+DVSGesture hidden_layers.hidden1: input activity 4.552078%, firing activity 14.185460%; input kind nonbinary_activities.
+
+Nonbinary activity is not a physical spike count. Its physical SOP and input Hz remain unset.
+Winners gate learning; losing neurons' spikes are retained. Winner count is not firing/reset count.
+Neuron updates are algorithmic opportunities; physical SA gating is not simulated.
+Software spike resets, sample-boundary initialization and physical RBL recharge must not be conflated.
+Membrane traces use algorithm units; no RBL voltage or reset energy is inferred.
+Supplemental activity ratios include changes in model, weights, thresholds and task. They are not causal dataset-only corrections.
+Static power and layout area do not follow from dataset activity; they require their own circuit/layout characterization.
+Only TEST samples are evaluated. Original archive/adapters can also download TRAIN bytes; none are used for fitting or calibration.
+Voltage/clock/timing mapping, transistor/RTL energy, macro static/dynamic power and pJ/SOP remain unmeasured.
+Outputs: layer_activity.csv, hidden_activity.csv, per-condition per_sample_layers.csv and per_timestep_and_neuron_counts.npz.
+Packed trace bitorder is little; array axes are sample, view, step, packed input/output units.
+Representative traces are nearest choices from deterministic 1-percent input-activity bins, not exact quantile samples.
