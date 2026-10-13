@@ -4,7 +4,8 @@
   "resumed_transfer_skips_verified_chunks": true,
   "verified_archives_reused": true,
   "corrupted_extracted_file_repaired": true,
-  "verified_payload_files": 2,
+  "unicode_payload_filename_verified": true,
+  "verified_payload_files": 3,
   "platform": "Ubuntu 20.04.4 LTS",
   "scope": "Local mocked SCP integration; not actual Windows receipt"
 }

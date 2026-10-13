@@ -86,6 +86,8 @@ def payload():
 
 
 def finalize():
+    if subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=ROOT).strip():
+        raise RuntimeError('Commit all tracked changes before producing a commit-bound delivery.')
     commit = subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip()
     source = OUT / 'SNN-project-20261013.zip'
     subprocess.run(['git','archive','--format=zip','--prefix=Algorithm/',
@@ -127,6 +129,8 @@ def finalize():
     for name in filter(None,tracked):
         p = ROOT / name
         all_files[name] = {'bytes':p.stat().st_size,'sha256':sha(p)}
+    subprocess.run(['git','diff','--quiet','HEAD'],cwd=ROOT,check=True)
+    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()==commit
     files_manifest = OUT / 'PAYLOAD_FILES.json'
     write(files_manifest, {'schema':1,'git_commit':commit,'files':all_files,
                           'runtime_scope':'archive SHA256 on Windows; relocation and imports on Linux'})

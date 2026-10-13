@@ -31,7 +31,7 @@ function Test-Digest([string]$Path, [string]$Expected) {
 $IndexFile = Join-Path $Archives 'DOWNLOAD_INDEX.json'
 Get-RemoteFile 'DOWNLOAD_INDEX.json' "$IndexFile.partial"
 Move-Item -LiteralPath "$IndexFile.partial" -Destination $IndexFile -Force
-$Index = Get-Content -LiteralPath $IndexFile -Raw | ConvertFrom-Json
+$Index = Get-Content -LiteralPath $IndexFile -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($Index.schema -ne 1 -or $Index.release -ne '20261013') { throw 'Unexpected delivery index.' }
 $Required = [long]$Index.compressed_bytes * 2 + [long]$Index.payload_bytes + 1GB
 $DriveName = [System.IO.Path]::GetPathRoot([System.IO.Path]::GetFullPath($Destination))
@@ -88,7 +88,7 @@ foreach ($Archive in $Index.archives) {
     }
 }
 # Keep Linux environment archives intact on Windows to preserve links and modes.
-$Payload = Get-Content -LiteralPath $Manifest -Raw | ConvertFrom-Json
+$Payload = Get-Content -LiteralPath $Manifest -Raw -Encoding UTF8 | ConvertFrom-Json
 $Verified = 0
 foreach ($Property in $Payload.files.PSObject.Properties) {
     $Relative = $Property.Name
