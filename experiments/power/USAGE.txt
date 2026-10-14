@@ -4,7 +4,7 @@ SNN 脉冲活动统计与电路输入交付
 主结果使用完整 TEST、原时间步和视图数，权重与阈值不更新。
 时序尚未确认，活动率的单位是“每个输入通道/神经元，每逻辑时间步”。
 
-结果目录：results/new_runs/spike_activity_20261012/final/
+新运行的结果目录：results/activity/
   hidden_activity.csv：隐藏层汇总，含输入类型、发放率、SOP、软件复位和边界初始化。
   layer_activity.csv：全部被统计层的汇总。
   completion_audit.json：完整条件、精度重放、逐样本/时间步/位序列的独立一致性检查。
@@ -47,18 +47,18 @@ effective_SOP 另行统计非零权重命中的操作，二者不要混用。
 还未测量：硬件 Hz、实际 RST 次数、RBL 电压、静态/动态功耗、pJ/SOP、版图面积。
 本次输出是完整 TEST 的算法活动证据与电路刺激，不是硅片电源测量。
 
-复现入口（在项目根目录，使用 .venv 的 Python）：
-  experiments/power/test_data.py --dataset NMNIST
-  experiments/power/test_data.py --dataset MNIST
-  experiments/power/prepare_cifar_ranges.py
-  experiments/power/test_data.py --dataset DVSGesture
-  experiments/power/run_activity.py --out <新的结果目录>
-  experiments/power/report_activity.py --out <结果目录>
-  experiments/power/export_stimuli.py --out <结果目录> --precision uint4
-  experiments/power/export_stimuli.py --out <结果目录> --precision uint2
-完整 TEST 统计需要 CUDA；报告和图表复现只需要已保存的结果与 NumPy/Matplotlib。
-环境使用 Python 3.10、torch 2.7.1+cu126、torchvision 0.22.1+cpu、SpikingJelly 0.0.0.0.14。
-全部原始冻结模型文件和迁移交付保持原样。
+复现入口（仓库根目录，conda activate lowbitsnn）：
+  python scripts/prepare_datasets.py --scope test --dataset NMNIST
+  python scripts/prepare_datasets.py --scope test --dataset MNIST
+  python scripts/prepare_datasets.py --scope test --dataset CIFAR10DVS
+  python scripts/prepare_datasets.py --scope test --dataset DVSGesture
+  python experiments/power/run_activity.py --out results/activity --wait-data-seconds 0
+  python experiments/power/report_activity.py --out results/activity
+  python experiments/power/export_stimuli.py --out results/activity --precision uint4
+  python experiments/power/export_stimuli.py --out results/activity --precision uint2
+完整 TEST 统计需要 CUDA；报告和图表只需要已生成的结果与 NumPy/Matplotlib。
+环境由 environment.yml 定义；模型使用 checkpoints/ 中单独上传的文件。
+results/ 内的实验记录、图表和刺激输出全部被 Git 忽略。
 
 数据来源说明：N-MNIST/Gesture 使用官方完整归档 MD5；CIFAR 支持只读取官方
 ZIP 的冻结 TEST 成员，校验服务器 ETag 对应记录的 MD5、成员 CRC、原始样本 SHA256

@@ -90,7 +90,7 @@ def prepare(data_dir, workers=8):
     if manifest.exists():
         return
     by_stem = {Path(f).stem:f for f in files}
-    resources = json.loads((ROOT/"migration/dataset_sources.json").read_text())[name]
+    resources = json.loads((ROOT/"configs/dataset_sources.json").read_text())[name]
     metadata, evidence, jobs = {}, [], []
     def catalog(resource):
         remote = RemoteArchive(resource, base/"TEST_remote_zip"/resource["name"])

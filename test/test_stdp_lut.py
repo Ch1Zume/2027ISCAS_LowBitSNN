@@ -15,7 +15,7 @@ from snn.inference_quant import quantize_nonnegative, quantized_hidden_weights
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = ROOT / "results/accuracy/compression_3to5M_20261006_selected"
+BUNDLE = ROOT / "benchmarks/compressed"
 EXPECTED = [-12, -11, -11, -11, -11, -11, -10, -10, -10, -10, -10, -9, -9, -9,
             -8, -8, -7, -7, -6, -6, -5, -4, -3, -3, -1, 0, 1, 2, 4, 6, 8, 10]
 
@@ -126,7 +126,7 @@ def test_frozen_cifar_constructor_really_applies_group_roles(tmp_path, monkeypat
     module = importlib.util.module_from_spec(spec)
     monkeypatch.setitem(sys.modules, spec.name, module)
     spec.loader.exec_module(module)
-    cfg = json.loads((BUNDLE / "conditions/CIFAR10DVS/config.json").read_text())
+    cfg = json.loads((ROOT / "configs/final/compressed/CIFAR10DVS.json").read_text())
     native = module.AccuracySNN("custom", "CIFAR10DVS", cfg, "exponential")
     changed = dict(cfg, stdp_mode="lut", stdp_input_encoding="bernoulli_trace",
                    hybrid_stdp_granularity="group")
@@ -157,7 +157,7 @@ def test_spatial_transfer_preserves_coarse_contributions_and_parameter_budget(tm
     module = importlib.util.module_from_spec(spec)
     monkeypatch.setitem(sys.modules, spec.name, module)
     spec.loader.exec_module(module)
-    cfg = json.loads((BUNDLE / 'conditions/CIFAR10DVS/config.json').read_text())
+    cfg = json.loads((ROOT / 'configs/final/compressed/CIFAR10DVS.json').read_text())
     native = module.AccuracySNN('custom', 'CIFAR10DVS', cfg, 'exponential')
     changed = copy.deepcopy(cfg)
     changed.update(custom_channels=[32,64,128,256,448], hidden_widths=[256],

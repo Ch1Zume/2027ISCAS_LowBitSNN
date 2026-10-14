@@ -18,7 +18,7 @@ import torch
 from torch.utils.data import Dataset
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "migration"))
+sys.path.insert(0, str(ROOT / "scripts"))
 from common import entry, sha
 
 
@@ -32,14 +32,14 @@ def write_json(path, value):
 
 def split_contract(name):
     e = entry("lut_final", name)
-    splits = list((ROOT / "migration/dataset_splits" / name).glob("*.json"))
+    splits = list((ROOT / "configs/dataset_splits" / name).glob("*.json"))
     matches = [p for p in splits if sha(p) == e["split_sha256"]]
     assert len(matches) == 1, "Frozen split missing or ambiguous"
     split = json.loads(matches[0].read_text())
     if name == "MNIST":
         files = [f"TEST/{i}" for i in split["test_indices"]]
     else:
-        order = json.loads((ROOT / "migration/event_file_order.json").read_text())[name]
+        order = json.loads((ROOT / "configs/event_file_order.json").read_text())[name]
         population = order if name == "CIFAR10DVS" else [f for f in order if f.startswith("test/")]
         files = [population[i] for i in split["test_indices"]]
     assert len(files) == e["test"]["float32"]["samples"]
@@ -98,7 +98,7 @@ def prepare(name, data_dir, workers=4):
         if name != "MNIST":
             assert all((frame_root(data_dir, name) / f).is_file() for f in files)
         return m
-    sources = json.loads((ROOT / "migration/dataset_sources.json").read_text())
+    sources = json.loads((ROOT / "configs/dataset_sources.json").read_text())
     source_evidence, raw = [], {}
     if name == "MNIST":
         from torchvision.datasets import MNIST

@@ -10,6 +10,7 @@ import hashlib
 import importlib
 import json
 import math
+import os
 import shutil
 import sys
 import time
@@ -26,7 +27,8 @@ from structural import (TrainingStatistics, assert_physical_weights, parameter_c
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BENCHMARK = ROOT / "results/accuracy/custom_performance_candidates_20261004/selected_benchmark_final_20261005"
+sys.path.insert(0, str(ROOT / "scripts"))
+from common import entry as benchmark_entry, runtime, verify
 WIDTHS = {"MNIST": [512, 512], "NMNIST": [512, 512],
           "CIFAR10DVS": [768], "DVSGesture": [1024]}
 EPOCHS = {"MNIST": 12, "NMNIST": 12, "CIFAR10DVS": 30, "DVSGesture": 30}
@@ -95,9 +97,15 @@ def main():
     if args.out.exists() and not args.resume:
         parser.error("output exists; use --resume or a new output path")
     args.out.mkdir(parents=True, exist_ok=True)
-    manifest = json.loads((BENCHMARK / "benchmark_manifest.json").read_text())
-    entry = next(row for row in manifest["entries"] if row["dataset"] == args.dataset)
-    source = Path(entry["source_root"])
+    verify('original', args.dataset)
+    entry = benchmark_entry('original', args.dataset)
+    runtime(entry)
+    source = ROOT / entry['runtime']
+    entry['source_root'] = str(source)
+    entry['checkpoint'] = str(ROOT / entry['checkpoint'])
+    entry['config_snapshot'] = str(ROOT / entry['config'])
+    entry['split_manifest_sha256'] = entry['split_sha256']
+    entry['source_sha256'] = {str(p.relative_to(source)): sha(p) for p in source.rglob('*.py')}
     if sha(entry["checkpoint"]) != entry["checkpoint_sha256"]:
         raise AssertionError("Frozen teacher checkpoint digest differs")
     for name, digest in entry["source_sha256"].items():
@@ -125,6 +133,7 @@ def main():
     torch.backends.cudnn.allow_tf32 = True
     torch.backends.cuda.matmul.allow_tf32 = False
     teacher_cfg = json.loads(Path(entry["config_snapshot"]).read_text())
+    teacher_cfg['data_dir'] = os.environ.get('SNN_DATA_DIR', str(ROOT / 'datasets'))
     seed_everything(teacher_cfg["seed"])
     previous_provenance = (json.loads((args.out / "provenance.json").read_text()) if args.resume else {})
     profile = args.profile or previous_provenance.get("compression_profile", "half")

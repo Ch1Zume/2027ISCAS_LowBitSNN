@@ -1,0 +1,5 @@
+# Scope this setting to the project with CONDARC; do not edit the host config.
+channels:
+  - conda-forge
+default_channels:
+  - https://conda.anaconda.org/conda-forge

@@ -114,7 +114,7 @@ if __name__ == "__main__":
     p.add_argument("--archives", type=int, default=2)
     p.add_argument("--connections", type=int, default=4)
     a = p.parse_args()
-    resources = json.loads((ROOT / "migration/dataset_sources.json").read_text())[a.dataset]
+    resources = json.loads((ROOT / "configs/dataset_sources.json").read_text())[a.dataset]
     if a.dataset == "DVSGesture":
         resources = resources[:1]
     with ThreadPoolExecutor(max_workers=a.archives) as pool:

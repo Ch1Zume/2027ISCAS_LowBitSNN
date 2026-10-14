@@ -21,7 +21,7 @@ from pathlib import Path
 
 
 ROOT = Path(os.environ.get("SNN_PROJECT_ROOT", Path(__file__).resolve().parents[2])).resolve()
-BUNDLE = ROOT / "results/accuracy/compression_3to5M_20261006_selected"
+BUNDLE = ROOT / "benchmarks/compressed"
 DEFAULT_CONDITIONS = ("legacy_native", "legacy_events", "lut_events")
 CONDITIONS = DEFAULT_CONDITIONS + ("lut_native_trace",)
 
@@ -201,7 +201,7 @@ def main():
         if args.from_scratch or not args.initial_checkpoint.is_file():
             parser.error('Initial checkpoint must exist and cannot be combined with from-scratch')
     args.out = args.out.resolve()
-    manifest = json.loads((BUNDLE / "compression_manifest.json").read_text())
+    manifest = json.loads((BUNDLE / "training.json").read_text())
     if args.datasets:
         manifest["entries"] = [e for e in manifest["entries"] if e["dataset"] in args.datasets]
     if args.spatial_student and (args.dataset != 'CIFAR10DVS' if args.dataset else [e['dataset'] for e in manifest['entries']] != ['CIFAR10DVS']):
@@ -255,7 +255,7 @@ def main():
             driver_history.append({"path": old_driver.name, "sha256": sha(old_driver),
                 "reason": "Support historical compression RATES provenance; preserve completed VALID conditions"})
         shutil.copy2(Path(__file__), args.out / "run_frozen.py")
-        protocol = {"baseline_bundle": str(BUNDLE), "baseline_manifest_sha256": sha(BUNDLE / "compression_manifest.json"),
+        protocol = {"baseline_bundle": str(BUNDLE), "baseline_manifest_sha256": sha(BUNDLE / "training.json"),
             "datasets": [e["dataset"] for e in manifest["entries"]], "conditions": args.conditions,
             "seed": 42, "blocks": args.blocks, "batches_per_block": args.batches_per_block,
             "epochs": args.epochs, "patience": args.patience, "bp_rate_scale": args.bp_rate_scale,
@@ -351,9 +351,7 @@ def main():
                     "--test-only"], check=True)
         results = {e["dataset"]: {c: json.loads((args.out / e["dataset"] / c / "accuracy.json").read_text())
                    for c in args.conditions} for e in manifest["entries"]}
-        assert all(sha(BUNDLE / e["checkpoint"]) == e["checkpoint_sha256"] for e in manifest["entries"])
-        bad = [name for e in manifest["entries"] for name, digest in e["bundle_sha256"].items() if (BUNDLE / name).is_file() and sha(BUNDLE / name) != digest]
-        assert not bad, bad
+        assert all(sha(ROOT / e["checkpoint"]) == e["checkpoint_sha256"] for e in manifest["entries"])
         write(args.out / "results.json", results)
         write(args.out / "status.json", {"at": datetime.now(timezone.utc).isoformat(), "phase": "completed",
               "conditions_completed": len(results)*len(args.conditions),
@@ -385,7 +383,7 @@ def main():
     torch.backends.cudnn.allow_tf32 = True
     torch.backends.cuda.matmul.allow_tf32 = False
     out = args.out / args.dataset / args.condition
-    original_cfg = json.loads((BUNDLE / entry["config"]).read_text())
+    original_cfg = json.loads((ROOT / entry["config"]).read_text())
     original_cfg["data_dir"] = os.environ.get("SNN_DATA_DIR", str(ROOT / "datasets"))
     cfg = copy.deepcopy(original_cfg)
     cfg.update(stdp_mode="lut" if args.condition.startswith("lut_") else "legacy_continuous",
@@ -438,7 +436,7 @@ def main():
     else:
         assert parameter_total == entry["parameters"]["total"]
     assert 3_000_000 <= parameter_total <= 5_000_000
-    expected = json.loads((BUNDLE / entry["accuracy"]).read_text())
+    expected = {"validation": entry["validation"]}
     started = time.monotonic()
 
     def emit(event, **values):
@@ -469,7 +467,7 @@ def main():
         emit("full_test_completed", correct={k: v["correct"] for k, v in scores.items()},
              samples=len(loaders[2].dataset), selected_block=selection["selected_block"])
         return
-    saved = torch.load(BUNDLE / entry["checkpoint"], map_location=device, weights_only=True)
+    saved = torch.load(ROOT / entry["checkpoint"], map_location=device, weights_only=True)
     structural_transfer = None
     inherited_lut_training=False
     if not args.from_scratch:
@@ -537,12 +535,12 @@ def main():
         teacher = AccuracySNN("custom", args.dataset, original_cfg, "exponential").to(device)
         teacher.load_state_dict(saved["model"], strict=True)
         teacher.eval().requires_grad_(False)
-        teacher_evidence.update(checkpoint=str(BUNDLE / entry["checkpoint"]), checkpoint_sha256=entry["checkpoint_sha256"])
+        teacher_evidence.update(checkpoint=str(ROOT / entry["checkpoint"]), checkpoint_sha256=entry["checkpoint_sha256"])
     else:
-        old = ROOT / "results/accuracy/custom_performance_candidates_20261004/selected_benchmark_final_20261005"
-        old_manifest = json.loads((old / "benchmark_manifest.json").read_text())
-        old_entry = next(e for e in old_manifest["entries"] if e["dataset"] == args.dataset)
-        old_entry["checkpoint"] = str(old / "checkpoints" / (args.dataset + ".pth"))
+        old_manifest = json.loads((ROOT / "configs/benchmarks.json").read_text())
+        old_entry = next(e for e in old_manifest["entries"]
+                         if e["bundle"] == "original" and e["dataset"] == args.dataset)
+        old_entry["checkpoint"] = str(ROOT / old_entry["checkpoint"])
         assert sha(old_entry["checkpoint"]) == old_entry["checkpoint_sha256"]
         cache_path = Path(os.environ.get("SNN_TEACHER_CACHE_DIR", str(ROOT / "results/new_runs/teacher_cache"))) / args.dataset / "teacher_train_logits.pth"
         teacher_cache = torch.load(cache_path, map_location="cpu", weights_only=True)
@@ -598,7 +596,7 @@ def main():
             hidden_layer.weight.requires_grad_(False)
             hidden_layer.bias.requires_grad_(False)
     del saved
-    compression_provenance = json.loads((BUNDLE / f"conditions/{args.dataset}/provenance.json").read_text())
+    compression_provenance = entry["optimizer"]
     recovery_rate, rate_source = compression_rate(args.dataset, compression_provenance,
         BUNDLE / f"conditions/{args.dataset}/compression_runtime/run.py")
     rate = recovery_rate * args.bp_rate_scale
@@ -608,7 +606,7 @@ def main():
                                   {"params": model.classifier.parameters(), "lr": rate*5}], weight_decay=0)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.blocks, eta_min=1e-6) if args.epochs else None
     source_hashes = {str(p.relative_to(source)): sha(p) for p in source.rglob("*.py")}
-    write(out / "provenance.json", {"original_checkpoint": str(BUNDLE / entry["checkpoint"]),
+    write(out / "provenance.json", {"original_checkpoint": str(ROOT / entry["checkpoint"]),
         "original_checkpoint_sha256": entry["checkpoint_sha256"], "baseline_parameters": entry["parameters"],
         "parameters": {"total": parameter_total} if args.spatial_student else entry['parameters'],
         "source_root": str(source), "source_sha256": source_hashes, "config_sha256": sha(out / "config.json"),

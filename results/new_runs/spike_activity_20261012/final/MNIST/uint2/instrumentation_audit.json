@@ -1,7 +1,0 @@
-{
-  "first_batch_samples": 64,
-  "exact_logits": true,
-  "RNG_unchanged": true,
-  "shadow_spikes_match": true,
-  "scope": "integration gate; not a full TEST quality result"
-}

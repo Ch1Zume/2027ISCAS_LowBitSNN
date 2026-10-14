@@ -19,7 +19,7 @@ from activity import ActivityCollector, ObservedLoader
 from test_data import FrozenTestFrames, write_json
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "migration"))
+sys.path.insert(0, str(ROOT / "scripts"))
 from common import entry, runtime, load_file, configure_torch, sha, verify
 
 
@@ -45,7 +45,7 @@ def main():
         write_json(a.out / "status.json", record)
         print(json.dumps(record, ensure_ascii=False), flush=True)
     status("verify_frozen_payload")
-    verified = verify()
+    verified = verify("lut_final")
     configure_torch()
     assert torch.cuda.is_available(), "CUDA required for full TEST"
     device = torch.device("cuda")

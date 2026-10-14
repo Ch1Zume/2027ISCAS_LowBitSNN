@@ -9,7 +9,7 @@ from spikingjelly.activation_based import layer
 sys.path.insert(0, str(Path(__file__).parent))
 from activity import ActivityCollector
 from test_data import ROOT
-sys.path.insert(0, str(ROOT / "migration"))
+sys.path.insert(0, str(ROOT / "scripts"))
 from common import entry, runtime
 
 
