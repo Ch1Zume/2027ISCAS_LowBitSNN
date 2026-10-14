@@ -166,28 +166,3 @@ python experiments/power/export_stimuli.py --out results/activity --precision ui
 输出包含逐层/逐样本/逐时间步活动、统计图和 N-MNIST hidden2 的权重码与输入序列。
 仅跑主基准可加 `--datasets NMNIST`；汇总报告命令需要完整的四数据集结果。
 统计口径见 [活动说明](experiments/power/USAGE.txt)：这些是软件活动与 SOP，不是硅片功耗或实际 RST 次数。
-
-## 8. 最终版复现范围
-
-本仓库只保留 `lut_final`：四个数据集的最终权重、对应冻结实现及 CIFAR 校准依赖。
-默认入口复现最终模型的完整 TEST 精度、活动统计和刺激导出。
-依赖旧教师模型的历史压缩、蒸馏重训和 reset 恢复训练入口已移除；这些历史流程可在 Git 历史中查阅。
-底层 SNN 学习规则与最终模型实现保持原样。
-
-## 9. 代码检查与目录说明
-
-```bash
-python -m pytest -q test experiments/power/test_activity.py
-```
-
-| 目录 / 文件 | 用途 | Git |
-|---|---|---|
-| `snn/`、`experiments/`、`scripts/`、`test/` | 算法、实验入口、工具和测试 | 跟踪 |
-| `benchmarks/` | 四个最终模型的冻结实现 | 跟踪 |
-| `configs/`、`environment.yml` | 配置、划分、校验清单和环境定义 | 跟踪 |
-| `checkpoints/`、`artifacts/` | 单独上传的权重及压缩包 | 忽略 |
-| `datasets*/` | 下载的原始数据及生成的帧 | 忽略 |
-| `results/`、`outputs/`、`runs/`、`logs/` | 实验记录、缓存、图表和输出 | 忽略 |
-
-`.gitignore` 同时忽略常见模型、数组、日志、图像、压缩包、环境和编辑器缓存。
-不要用 `git add -f` 添加实验产物。固定划分和最小精度比对基准属于必要的复现输入，保留在 Git 中。
