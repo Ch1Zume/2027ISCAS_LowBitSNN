@@ -3,7 +3,7 @@
 English | [中文](README.md)
 
 Reproduce the low-bit SNN experiments on MNIST, N-MNIST, CIFAR10-DVS and DVS128 Gesture.
-Workflow: **clone → upload the checkpoint archive separately → create the Conda environment → import weights → prepare data → run experiments**.
+Workflow: **clone → download models locally and upload → create the Conda environment → prepare data → run experiments**.
 
 Git contains source code, execution configurations, fixed dataset splits, model manifests and reference scores.
 Datasets, checkpoints, logs, per-sample records, figures, experiment outputs and installed environments are ignored. Git LFS is unnecessary.
@@ -21,39 +21,46 @@ nvidia-smi
 
 Run subsequent commands from the repository root. Full TEST evaluation and training require CUDA; file verification and model loading checks can run on CPU.
 
-## 2. Upload checkpoints separately
+## 2. Upload locally downloaded checkpoints
 
-On a source server that already has the models, create an archive using Python 3.10. This command needs only the standard library:
+Download model files to your local machine separately, then upload them to the target server using SCP/SFTP. **Models are not distributed or synchronized through this GitHub repository**.
+With `/path/to/2027ISCAS_LowBitSNN` as the server-side repository root, use these exact destinations:
 
-```bash
-python scripts/checkpoints.py pack --out artifacts/snn-checkpoints.tar.gz
-```
+| Model group / file | Server destination, relative to the repository root |
+|---|---|
+| original, one per dataset | `checkpoints/original/<dataset>.pth` |
+| compressed, one per dataset | `checkpoints/compressed/<dataset>.pth` |
+| lut_final, one per dataset | `checkpoints/lut_final/<dataset>.pth` |
+| CIFAR TRAIN calibration statistics | `checkpoints/lut_final/CIFAR10DVS_TRAIN_moments.pth` |
+| CIFAR quantizer configuration | `checkpoints/lut_final/CIFAR10DVS_quantizer_settings.pth` |
 
-Upload it to the target. Replace `USER`, `SERVER` and `/path/to/2027ISCAS_LowBitSNN` with your values:
+Use exactly `MNIST`, `NMNIST`, `CIFAR10DVS` or `DVSGesture` for `<dataset>`; names are case-sensitive.
+If a downloaded checkpoint is named `best.pth`, rename it according to its model group and dataset. For example, the final N-MNIST LUT model belongs at `checkpoints/lut_final/NMNIST.pth`.
+Rename CIFAR `TRAIN_moments.pth` and `quantizer_settings.pth` by adding the `CIFAR10DVS_` prefix shown above.
+The complete three-bundle benchmark needs **12 checkpoints + 2 calibration files**. A single-condition replay needs only that model and its calibration dependencies.
 
-```bash
-ssh USER@SERVER 'mkdir -p /path/to/2027ISCAS_LowBitSNN/artifacts'
-scp artifacts/snn-checkpoints.tar.gz USER@SERVER:/path/to/2027ISCAS_LowBitSNN/artifacts/
-```
-
-The complete archive contains **12 checkpoints + 2 CIFAR quantization calibration files**, without datasets or an environment.
-The importer checks file sizes and SHA256 hashes and installs this layout:
-
-```text
-checkpoints/
-├── original/{MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-├── compressed/{MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-└── lut_final/
-    ├── {MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-    ├── CIFAR10DVS_TRAIN_moments.pth
-    └── CIFAR10DVS_quantizer_settings.pth
-```
-
-For a single condition, export only its dependencies. CIFAR calibration files are included automatically:
+Create the directories from the repository root on the target server:
 
 ```bash
-python scripts/checkpoints.py pack --bundle lut_final --dataset NMNIST --out artifacts/nmnist-lut.tar.gz
+mkdir -p checkpoints/original checkpoints/compressed checkpoints/lut_final
 ```
+
+Upload from your local terminal. These commands assume your downloaded files are arranged under `/local/models/` as above; replace paths, `USER` and `SERVER`:
+
+```bash
+scp /local/models/original/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/original/
+scp /local/models/compressed/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/compressed/
+scp /local/models/lut_final/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/
+```
+
+Example for uploading a single model:
+
+```bash
+scp /local/downloads/NMNIST/best.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/NMNIST.pth
+```
+
+On Windows, use PowerShell's `scp` or an SFTP client with the same server destinations.
+`configs/checkpoints.json` records the required filenames, sizes and SHA256 hashes. Git ignores `checkpoints/`.
 
 ## 3. Create the Conda environment
 
@@ -69,13 +76,12 @@ The project `configs/condarc.yml` maps the defaults alias to conda-forge; `CONDA
 The PyTorch wheel supplies CUDA userspace dependencies; the server still needs a compatible NVIDIA driver.
 See the [official PyTorch installation history](https://pytorch.org/get-started/previous-versions/#v271) for the version pairing.
 
-## 4. Import and check models
+## 4. Check uploaded models
 
-On the target server:
+After uploading files and activating the environment, run on the target server:
 
 ```bash
 python scripts/verify.py --source-only
-python scripts/checkpoints.py unpack --archive artifacts/snn-checkpoints.tar.gz
 python scripts/verify.py --checkpoints
 ```
 
@@ -83,12 +89,8 @@ The last command validates model files, strictly loads all 12 models on CPU, and
 For a single uploaded condition:
 
 ```bash
-python scripts/checkpoints.py unpack --archive artifacts/nmnist-lut.tar.gz
 python scripts/verify.py --bundle lut_final --dataset NMNIST --checkpoints
 ```
-
-Alternatively, upload the `checkpoints/` directory with the layout above and run `verify.py`.
-`configs/checkpoints.json` is the authoritative list of filenames, sizes and SHA256 hashes.
 
 ## 5. Prepare TEST data
 
@@ -178,7 +180,7 @@ python experiments/reset_ablation/run.py --data-dir datasets_train --epochs 6 --
 ```
 
 This trains both behaviors, freezes both VALID selections, evaluates complete TEST partitions, and generates comparison figures.
-Upload original, compressed and lut_final weights; the complete checkpoint archive satisfies the dependencies of every entry point.
+Upload original, compressed and lut_final weights; uploading all files from step 2 satisfies the dependencies of every entry point.
 
 ## 9. Tests and repository layout
 

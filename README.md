@@ -3,7 +3,7 @@
 [English](README_EN.md) | 中文
 
 用于复现 MNIST、N-MNIST、CIFAR10-DVS 和 DVS128 Gesture 的低比特 SNN 实验。
-基本流程：**clone 代码 → 单独上传 checkpoint 包 → 创建 Conda 环境 → 导入权重 → 准备数据 → 运行实验**。
+基本流程：**clone 代码 → 本地下载模型并上传 → 创建 Conda 环境 → 准备数据 → 运行实验**。
 
 Git 只保存代码、运行配置、固定数据划分、模型文件清单和精度比对基准。
 数据集、checkpoint、日志、逐样本记录、图表、实验结果和环境全部忽略；不需要 Git LFS。
@@ -21,39 +21,46 @@ nvidia-smi
 
 后续命令均在仓库根目录运行。完整 TEST 和训练需要 CUDA；CPU 可用于文件验证和模型加载检查。
 
-## 2. 单独上传 checkpoint
+## 2. 从本地上传 checkpoint
 
-在已经持有模型的源服务器上打包。使用源服务器可用的 Python 3.10；此命令只依赖标准库：
+模型文件单独下载到本地，再通过 SCP/SFTP 上传到目标服务器。**GitHub 不提供或同步模型文件**。
+以 `/path/to/2027ISCAS_LowBitSNN` 为目标服务器上的仓库根目录，必须使用以下路径：
 
-```bash
-python scripts/checkpoints.py pack --out artifacts/snn-checkpoints.tar.gz
-```
+| 模型组 / 文件 | 目标服务器路径（相对仓库根目录） |
+|---|---|
+| original，四个数据集各一个 | `checkpoints/original/<dataset>.pth` |
+| compressed，四个数据集各一个 | `checkpoints/compressed/<dataset>.pth` |
+| lut_final，四个数据集各一个 | `checkpoints/lut_final/<dataset>.pth` |
+| CIFAR TRAIN 统计校准文件 | `checkpoints/lut_final/CIFAR10DVS_TRAIN_moments.pth` |
+| CIFAR 量化配置文件 | `checkpoints/lut_final/CIFAR10DVS_quantizer_settings.pth` |
 
-将包上传到目标服务器。将 `USER`、`SERVER` 和 `/path/to/2027ISCAS_LowBitSNN` 替换为实际值：
+`<dataset>` 严格使用 `MNIST`、`NMNIST`、`CIFAR10DVS`、`DVSGesture`，区分大小写。
+下载的 checkpoint 如果叫 `best.pth`，请按所属模型组和数据集重命名后上传，例如 N-MNIST 的最终 LUT 模型对应 `checkpoints/lut_final/NMNIST.pth`。
+下载的 CIFAR `TRAIN_moments.pth` 和 `quantizer_settings.pth` 分别按上表添加 `CIFAR10DVS_` 前缀。
+完整三套基准需要 **12 个 checkpoint + 2 个校准文件**；只重放一个条件时，只上传该条件的模型及校准文件即可。
 
-```bash
-ssh USER@SERVER 'mkdir -p /path/to/2027ISCAS_LowBitSNN/artifacts'
-scp artifacts/snn-checkpoints.tar.gz USER@SERVER:/path/to/2027ISCAS_LowBitSNN/artifacts/
-```
-
-完整包包含 **12 个 checkpoint + 2 个 CIFAR 量化校准文件**，不包含数据集或环境。
-模型布局如下；导入工具会按清单验证大小与 SHA256，并放到正确位置：
-
-```text
-checkpoints/
-├── original/{MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-├── compressed/{MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-└── lut_final/
-    ├── {MNIST,NMNIST,CIFAR10DVS,DVSGesture}.pth
-    ├── CIFAR10DVS_TRAIN_moments.pth
-    └── CIFAR10DVS_quantizer_settings.pth
-```
-
-只复现一个条件时，可只打包对应模型；CIFAR 的校准文件会一起包含：
+在目标服务器的仓库根目录创建目录：
 
 ```bash
-python scripts/checkpoints.py pack --bundle lut_final --dataset NMNIST --out artifacts/nmnist-lut.tar.gz
+mkdir -p checkpoints/original checkpoints/compressed checkpoints/lut_final
 ```
+
+在本地终端上传。这里假设本地模型已按上述结构整理到 `/local/models/`；将路径及 `USER`、`SERVER` 替换为实际值：
+
+```bash
+scp /local/models/original/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/original/
+scp /local/models/compressed/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/compressed/
+scp /local/models/lut_final/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/
+```
+
+单独上传一个模型的例子：
+
+```bash
+scp /local/downloads/NMNIST/best.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/NMNIST.pth
+```
+
+Windows 本地可用 PowerShell 的 `scp` 或 SFTP 客户端，目标服务器路径与上表相同。
+模型文件名、大小及 SHA256 在 `configs/checkpoints.json` 中定义。`checkpoints/` 已被 Git 忽略。
 
 ## 3. 创建 Conda 环境
 
@@ -69,26 +76,21 @@ python -c "import torch, torchvision; print(torch.__version__, torchvision.__ver
 PyTorch wheel 自带 CUDA 用户态依赖；服务器仍需支持该运行时的 NVIDIA 驱动。
 版本组合参见 [PyTorch 官方安装记录](https://pytorch.org/get-started/previous-versions/#v271)。
 
-## 4. 导入并检查模型
+## 4. 检查已上传的模型
 
-在目标服务器执行：
+完成上传并激活环境后，在目标服务器执行：
 
 ```bash
 python scripts/verify.py --source-only
-python scripts/checkpoints.py unpack --archive artifacts/snn-checkpoints.tar.gz
 python scripts/verify.py --checkpoints
 ```
 
-最后一条命令校验模型文件，并在 CPU 上严格加载全部 12 个模型，检查参数量和非负权重。
-这一步不计算 TEST 精度。若只上传一个条件，改用：
+最后一条命令校验模型文件，并在 CPU 上严格加载全部 12 个模型，检查参数量和非负权重。这一步不计算 TEST 精度。
+若只上传一个条件，使用：
 
 ```bash
-python scripts/checkpoints.py unpack --archive artifacts/nmnist-lut.tar.gz
 python scripts/verify.py --bundle lut_final --dataset NMNIST --checkpoints
 ```
-
-也可以直接上传 `checkpoints/` 目录，保留上述布局，然后执行 `verify.py`。
-文件名、大小和 SHA256 的唯一清单为 `configs/checkpoints.json`。
 
 ## 5. 准备 TEST 数据
 
@@ -176,7 +178,7 @@ N-MNIST 两种 reset 行为的相同预算对照：
 python experiments/reset_ablation/run.py --data-dir datasets_train --epochs 6 --out results/reset_nmnist
 ```
 
-该命令为两种行为分别训练、完成 VALID 选择后运行完整 TEST，并生成对比图表。需上传 original、compressed 和 lut_final 权重；完整模型包满足所有入口的依赖。
+该命令为两种行为分别训练、完成 VALID 选择后运行完整 TEST，并生成对比图表。需上传 original、compressed 和 lut_final 权重；按第 2 步上传全部模型可满足所有入口的依赖。
 
 ## 9. 代码检查与目录说明
 
