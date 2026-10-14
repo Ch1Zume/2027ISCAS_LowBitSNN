@@ -2,7 +2,7 @@
 
 [English](README_EN.md) | 中文
 
-用于复现 MNIST、N-MNIST、CIFAR10-DVS 和 DVS128 Gesture 的低比特 SNN 实验。
+用于复现 MNIST、N-MNIST、CIFAR10-DVS 和 DVS128 Gesture 的最终版低比特 SNN 实验，仅保留 `lut_final`。
 基本流程：**clone 代码 → 本地下载模型并上传 → 创建 Conda 环境 → 准备数据 → 运行实验**。
 
 Git 只保存代码、运行配置、固定数据划分、模型文件清单和精度比对基准。
@@ -28,28 +28,42 @@ nvidia-smi
 
 | 模型组 / 文件 | 目标服务器路径（相对仓库根目录） |
 |---|---|
-| original，四个数据集各一个 | `checkpoints/original/<dataset>.pth` |
-| compressed，四个数据集各一个 | `checkpoints/compressed/<dataset>.pth` |
 | lut_final，四个数据集各一个 | `checkpoints/lut_final/<dataset>.pth` |
 | CIFAR TRAIN 统计校准文件 | `checkpoints/lut_final/CIFAR10DVS_TRAIN_moments.pth` |
 | CIFAR 量化配置文件 | `checkpoints/lut_final/CIFAR10DVS_quantizer_settings.pth` |
 
 `<dataset>` 严格使用 `MNIST`、`NMNIST`、`CIFAR10DVS`、`DVSGesture`，区分大小写。
-下载的 checkpoint 如果叫 `best.pth`，请按所属模型组和数据集重命名后上传，例如 N-MNIST 的最终 LUT 模型对应 `checkpoints/lut_final/NMNIST.pth`。
+下载的 checkpoint 如果叫 `best.pth`，请按所属数据集重命名后上传，例如 N-MNIST 的最终 LUT 模型对应 `checkpoints/lut_final/NMNIST.pth`。
 下载的 CIFAR `TRAIN_moments.pth` 和 `quantizer_settings.pth` 分别按上表添加 `CIFAR10DVS_` 前缀。
-完整三套基准需要 **12 个 checkpoint + 2 个校准文件**；只重放一个条件时，只上传该条件的模型及校准文件即可。
+最终版需要 **4 个 checkpoint + 2 个 CIFAR 校准文件**；只重放一个条件时，只上传该条件的模型及校准文件即可。
+
+从持有最终文件的源服务器下载到本地（将 SSH 地址和源仓库路径替换为实际值）：
+
+```bash
+mkdir -p checkpoints
+scp -r USER@SOURCE_SERVER:/path/to/source-repo/checkpoints/lut_final checkpoints/
+```
+
+下载后本地 `checkpoints/lut_final/` 应包含：
+
+```text
+MNIST.pth
+NMNIST.pth
+CIFAR10DVS.pth
+DVSGesture.pth
+CIFAR10DVS_TRAIN_moments.pth
+CIFAR10DVS_quantizer_settings.pth
+```
 
 在目标服务器的仓库根目录创建目录：
 
 ```bash
-mkdir -p checkpoints/original checkpoints/compressed checkpoints/lut_final
+mkdir -p checkpoints/lut_final
 ```
 
 在本地终端上传。这里假设本地模型已按上述结构整理到 `/local/models/`；将路径及 `USER`、`SERVER` 替换为实际值：
 
 ```bash
-scp /local/models/original/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/original/
-scp /local/models/compressed/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/compressed/
 scp /local/models/lut_final/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/
 ```
 
@@ -85,7 +99,7 @@ python scripts/verify.py --source-only
 python scripts/verify.py --checkpoints
 ```
 
-最后一条命令校验模型文件，并在 CPU 上严格加载全部 12 个模型，检查参数量和非负权重。这一步不计算 TEST 精度。
+最后一条命令校验模型文件，并在 CPU 上严格加载全部 4 个最终模型，检查参数量和非负权重。这一步不计算 TEST 精度。
 若只上传一个条件，使用：
 
 ```bash
@@ -119,13 +133,11 @@ python scripts/replay.py --bundle lut_final --dataset NMNIST --data-dir datasets
 ```
 
 每次调用都会计算该模型的 **FP32、uint2、uint4 完整 TEST**，检查推理前后模型状态不变，并与保存的基准比较。
-复现全部三套模型、四个数据集：
+复现最终版的四个数据集：
 
 ```bash
-for bundle in original compressed lut_final; do
-  for dataset in MNIST NMNIST CIFAR10DVS DVSGesture; do
-    python scripts/replay.py --bundle "$bundle" --dataset "$dataset" --data-dir datasets --out "results/replay/${bundle}_${dataset}.json"
-  done
+for dataset in MNIST NMNIST CIFAR10DVS DVSGesture; do
+  python scripts/replay.py --dataset "$dataset" --data-dir datasets --out "results/replay/lut_final_${dataset}.json"
 done
 ```
 
@@ -155,30 +167,12 @@ python experiments/power/export_stimuli.py --out results/activity --precision ui
 仅跑主基准可加 `--datasets NMNIST`；汇总报告命令需要完整的四数据集结果。
 统计口径见 [活动说明](experiments/power/USAGE.txt)：这些是软件活动与 SOP，不是硅片功耗或实际 RST 次数。
 
-## 8. 新训练与 reset 消融
+## 8. 最终版复现范围
 
-训练需要完整 TRAIN/VALID/TEST。使用单独目录，避免将 TEST-only 缓存误用为完整数据：
-
-```bash
-python scripts/prepare_datasets.py --scope all --download --dataset NMNIST --data-dir datasets_train
-python scripts/train.py --dataset NMNIST --data-dir datasets_train --mode warm-start-final --epochs 6 --out results/train_nmnist
-```
-
-该入口先重放压缩基准，再从 original checkpoint 生成 TRAIN-only 教师缓存，最后进行 TRAIN/VALID 训练。
-`warm-start-final` 从最终权重启动新的优化器；`--mode from-scratch` 随机初始化学生，但仍使用原始教师。
-这是新实验，不是原训练状态的续跑，也不保证恢复历史分数。TEST 默认推迟；VALID 选定后执行：
-
-```bash
-SNN_DATA_DIR="$PWD/datasets_train" python results/train_nmnist/run_frozen.py --out results/train_nmnist --dataset NMNIST --condition lut_native_trace --stdp-lr 0.001 --bp-rate-scale 0.1 --test-only
-```
-
-N-MNIST 两种 reset 行为的相同预算对照：
-
-```bash
-python experiments/reset_ablation/run.py --data-dir datasets_train --epochs 6 --out results/reset_nmnist
-```
-
-该命令为两种行为分别训练、完成 VALID 选择后运行完整 TEST，并生成对比图表。需上传 original、compressed 和 lut_final 权重；按第 2 步上传全部模型可满足所有入口的依赖。
+本仓库只保留 `lut_final`：四个数据集的最终权重、对应冻结实现及 CIFAR 校准依赖。
+默认入口复现最终模型的完整 TEST 精度、活动统计和刺激导出。
+依赖旧教师模型的历史压缩、蒸馏重训和 reset 恢复训练入口已移除；这些历史流程可在 Git 历史中查阅。
+底层 SNN 学习规则与最终模型实现保持原样。
 
 ## 9. 代码检查与目录说明
 
@@ -189,7 +183,7 @@ python -m pytest -q test experiments/power/test_activity.py
 | 目录 / 文件 | 用途 | Git |
 |---|---|---|
 | `snn/`、`experiments/`、`scripts/`、`test/` | 算法、实验入口、工具和测试 | 跟踪 |
-| `benchmarks/` | 各条件的冻结模型实现与必要训练参数 | 跟踪 |
+| `benchmarks/` | 四个最终模型的冻结实现 | 跟踪 |
 | `configs/`、`environment.yml` | 配置、划分、校验清单和环境定义 | 跟踪 |
 | `checkpoints/`、`artifacts/` | 单独上传的权重及压缩包 | 忽略 |
 | `datasets*/` | 下载的原始数据及生成的帧 | 忽略 |

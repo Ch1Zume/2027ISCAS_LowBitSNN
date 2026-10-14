@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ('MNIST', 'NMNIST', 'CIFAR10DVS', 'DVSGesture')
-BUNDLES = ('original', 'compressed', 'lut_final')
+BUNDLES = ('lut_final',)
 
 def sha(path):
     digest = hashlib.sha256()

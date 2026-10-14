@@ -6,7 +6,7 @@ from common import ROOT, DATASETS, BUNDLES, entry, runtime, configure_torch, wri
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--bundle', choices=BUNDLES, required=True)
+    p.add_argument('--bundle', choices=BUNDLES, default='lut_final')
     p.add_argument('--dataset', choices=DATASETS, required=True)
     p.add_argument('--out', type=Path)
     a = p.parse_args()

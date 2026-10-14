@@ -1,62 +1,6 @@
 {
   "schema": 1,
   "files": {
-    "checkpoints/original/MNIST.pth": {
-      "sha256": "c632fe77dfd23ed0f173cd7f98e919e1a5ea38720f4ea15507885d306944e8cb",
-      "bytes": 419635815,
-      "bundle": "original",
-      "dataset": "MNIST",
-      "role": "checkpoint"
-    },
-    "checkpoints/original/NMNIST.pth": {
-      "sha256": "e22b60b921cd18a89a737cdb569e5eef701e2f3853f002b15d81b7b625e98181",
-      "bytes": 419648295,
-      "bundle": "original",
-      "dataset": "NMNIST",
-      "role": "checkpoint"
-    },
-    "checkpoints/original/CIFAR10DVS.pth": {
-      "sha256": "9cebc2d68b521ad414cae20aedd8a790e0a7fac80b3b0b57acaddb282baeb62f",
-      "bytes": 554388736,
-      "bundle": "original",
-      "dataset": "CIFAR10DVS",
-      "role": "checkpoint"
-    },
-    "checkpoints/original/DVSGesture.pth": {
-      "sha256": "2d7d4b5b8104823d1a299664f3ecfe1232af26e3249228199ba045d6c510542d",
-      "bytes": 121943217,
-      "bundle": "original",
-      "dataset": "DVSGesture",
-      "role": "checkpoint"
-    },
-    "checkpoints/compressed/MNIST.pth": {
-      "sha256": "6779085f244aaf24fa7732644ec64eba85f92d0a2643f749a14414fc4696cf0b",
-      "bytes": 17850713,
-      "bundle": "compressed",
-      "dataset": "MNIST",
-      "role": "checkpoint"
-    },
-    "checkpoints/compressed/NMNIST.pth": {
-      "sha256": "dd37610aa2baed51338966f44e0e730738bc5784e18e973939bd0fadc0acbfd5",
-      "bytes": 17853017,
-      "bundle": "compressed",
-      "dataset": "NMNIST",
-      "role": "checkpoint"
-    },
-    "checkpoints/compressed/CIFAR10DVS.pth": {
-      "sha256": "76fe1c490eb882d8e42146e55a7ea26cc0b27d49d22c3c7ead50272b963da39d",
-      "bytes": 18907383,
-      "bundle": "compressed",
-      "dataset": "CIFAR10DVS",
-      "role": "checkpoint"
-    },
-    "checkpoints/compressed/DVSGesture.pth": {
-      "sha256": "853c2b06bc5aeb9b5a20b2258ce662f3f32102540ac09bdac2a6ef763a46adcf",
-      "bytes": 17865655,
-      "bundle": "compressed",
-      "dataset": "DVSGesture",
-      "role": "checkpoint"
-    },
     "checkpoints/lut_final/MNIST.pth": {
       "sha256": "e94245e1cdc330a14cca40ed0ad9f2ee5d1c4cbb1b34d064a94c0940b91cd651",
       "bytes": 17859463,

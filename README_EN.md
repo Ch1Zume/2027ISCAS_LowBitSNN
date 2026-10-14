@@ -2,7 +2,7 @@
 
 English | [中文](README.md)
 
-Reproduce the low-bit SNN experiments on MNIST, N-MNIST, CIFAR10-DVS and DVS128 Gesture.
+Reproduce the final low-bit SNN models on MNIST, N-MNIST, CIFAR10-DVS and DVS128 Gesture. Only `lut_final` is retained.
 Workflow: **clone → download models locally and upload → create the Conda environment → prepare data → run experiments**.
 
 Git contains source code, execution configurations, fixed dataset splits, model manifests and reference scores.
@@ -28,28 +28,42 @@ With `/path/to/2027ISCAS_LowBitSNN` as the server-side repository root, use thes
 
 | Model group / file | Server destination, relative to the repository root |
 |---|---|
-| original, one per dataset | `checkpoints/original/<dataset>.pth` |
-| compressed, one per dataset | `checkpoints/compressed/<dataset>.pth` |
 | lut_final, one per dataset | `checkpoints/lut_final/<dataset>.pth` |
 | CIFAR TRAIN calibration statistics | `checkpoints/lut_final/CIFAR10DVS_TRAIN_moments.pth` |
 | CIFAR quantizer configuration | `checkpoints/lut_final/CIFAR10DVS_quantizer_settings.pth` |
 
 Use exactly `MNIST`, `NMNIST`, `CIFAR10DVS` or `DVSGesture` for `<dataset>`; names are case-sensitive.
-If a downloaded checkpoint is named `best.pth`, rename it according to its model group and dataset. For example, the final N-MNIST LUT model belongs at `checkpoints/lut_final/NMNIST.pth`.
+If a downloaded checkpoint is named `best.pth`, rename it according to its dataset. For example, the final N-MNIST LUT model belongs at `checkpoints/lut_final/NMNIST.pth`.
 Rename CIFAR `TRAIN_moments.pth` and `quantizer_settings.pth` by adding the `CIFAR10DVS_` prefix shown above.
-The complete three-bundle benchmark needs **12 checkpoints + 2 calibration files**. A single-condition replay needs only that model and its calibration dependencies.
+The final release needs **4 checkpoints + 2 CIFAR calibration files**. A single-condition replay needs only that model and its calibration dependencies.
+
+Download the final files from a source server to your local machine (replace the SSH address and source repository path):
+
+```bash
+mkdir -p checkpoints
+scp -r USER@SOURCE_SERVER:/path/to/source-repo/checkpoints/lut_final checkpoints/
+```
+
+Your local `checkpoints/lut_final/` should contain:
+
+```text
+MNIST.pth
+NMNIST.pth
+CIFAR10DVS.pth
+DVSGesture.pth
+CIFAR10DVS_TRAIN_moments.pth
+CIFAR10DVS_quantizer_settings.pth
+```
 
 Create the directories from the repository root on the target server:
 
 ```bash
-mkdir -p checkpoints/original checkpoints/compressed checkpoints/lut_final
+mkdir -p checkpoints/lut_final
 ```
 
 Upload from your local terminal. These commands assume your downloaded files are arranged under `/local/models/` as above; replace paths, `USER` and `SERVER`:
 
 ```bash
-scp /local/models/original/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/original/
-scp /local/models/compressed/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/compressed/
 scp /local/models/lut_final/*.pth USER@SERVER:/path/to/2027ISCAS_LowBitSNN/checkpoints/lut_final/
 ```
 
@@ -85,7 +99,7 @@ python scripts/verify.py --source-only
 python scripts/verify.py --checkpoints
 ```
 
-The last command validates model files, strictly loads all 12 models on CPU, and checks parameter counts and nonnegative weights. It does not evaluate TEST accuracy.
+The last command validates model files, strictly loads all four final models on CPU, and checks parameter counts and nonnegative weights. It does not evaluate TEST accuracy.
 For a single uploaded condition:
 
 ```bash
@@ -118,13 +132,11 @@ python scripts/replay.py --bundle lut_final --dataset NMNIST --data-dir datasets
 ```
 
 Each invocation evaluates **FP32, uint2 and uint4 on the complete TEST partition**, checks that inference leaves the model state unchanged, and compares against the stored reference.
-Replay all three model bundles and all four datasets:
+Replay the final models on all four datasets:
 
 ```bash
-for bundle in original compressed lut_final; do
-  for dataset in MNIST NMNIST CIFAR10DVS DVSGesture; do
-    python scripts/replay.py --bundle "$bundle" --dataset "$dataset" --data-dir datasets --out "results/replay/${bundle}_${dataset}.json"
-  done
+for dataset in MNIST NMNIST CIFAR10DVS DVSGesture; do
+  python scripts/replay.py --dataset "$dataset" --data-dir datasets --out "results/replay/lut_final_${dataset}.json"
 done
 ```
 
@@ -156,31 +168,12 @@ Outputs include activity by layer/sample/timestep, figures, and N-MNIST hidden2 
 Add `--datasets NMNIST` to evaluate only the primary baseline; the summary report requires all four datasets.
 See the [activity contract](experiments/power/USAGE.txt): these are software activity and SOP counts, not measured silicon power or physical RST counts.
 
-## 8. New training and reset ablation
+## 8. Final-release reproduction scope
 
-Training needs complete TRAIN/VALID/TEST data. Use a separate directory to avoid treating a TEST-only cache as a complete dataset:
-
-```bash
-python scripts/prepare_datasets.py --scope all --download --dataset NMNIST --data-dir datasets_train
-python scripts/train.py --dataset NMNIST --data-dir datasets_train --mode warm-start-final --epochs 6 --out results/train_nmnist
-```
-
-This entry point replays the compressed baseline, generates a TRAIN-only teacher cache from the original checkpoint, and then runs TRAIN/VALID optimization.
-`warm-start-final` initializes a new optimizer from the final weights; `--mode from-scratch` randomly initializes the student but still uses the original teacher.
-This is a new experiment, not continuation of the historical optimizer state or a guarantee of historical scores. TEST is deferred by default; after VALID selection, run:
-
-```bash
-SNN_DATA_DIR="$PWD/datasets_train" python results/train_nmnist/run_frozen.py --out results/train_nmnist --dataset NMNIST --condition lut_native_trace --stdp-lr 0.001 --bp-rate-scale 0.1 --test-only
-```
-
-Run the equal-budget N-MNIST reset comparison:
-
-```bash
-python experiments/reset_ablation/run.py --data-dir datasets_train --epochs 6 --out results/reset_nmnist
-```
-
-This trains both behaviors, freezes both VALID selections, evaluates complete TEST partitions, and generates comparison figures.
-Upload original, compressed and lut_final weights; uploading all files from step 2 satisfies the dependencies of every entry point.
+Only `lut_final` is retained: the four final checkpoints, their frozen implementations and the required CIFAR calibration inputs.
+The supported entry points reproduce full TEST accuracy, activity statistics and circuit stimuli.
+Historical compression, teacher-dependent retraining and reset recovery training launchers have been removed; their source remains available in Git history.
+The underlying SNN learning rules and final model implementations are unchanged.
 
 ## 9. Tests and repository layout
 
@@ -191,7 +184,7 @@ python -m pytest -q test experiments/power/test_activity.py
 | Path | Purpose | Git |
 |---|---|---|
 | `snn/`, `experiments/`, `scripts/`, `test/` | Algorithms, experiment drivers, utilities and tests | Tracked |
-| `benchmarks/` | Frozen model implementations and required training settings | Tracked |
+| `benchmarks/` | Frozen implementations of the four final models | Tracked |
 | `configs/`, `environment.yml` | Configurations, splits, manifests and environment definition | Tracked |
 | `checkpoints/`, `artifacts/` | Separately uploaded weights and archives | Ignored |
 | `datasets*/` | Raw downloads and generated frames | Ignored |

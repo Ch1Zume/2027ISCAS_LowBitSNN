@@ -15,7 +15,7 @@ from snn.inference_quant import quantize_nonnegative, quantized_hidden_weights
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = ROOT / "benchmarks/compressed"
+BUNDLE = ROOT / "benchmarks/lut_final"
 EXPECTED = [-12, -11, -11, -11, -11, -11, -10, -10, -10, -10, -10, -9, -9, -9,
             -8, -8, -7, -7, -6, -6, -5, -4, -3, -3, -1, 0, 1, 2, 4, 6, 8, 10]
 
@@ -114,75 +114,12 @@ def test_trace_only_probabilities_resume_and_eval_freeze():
     assert restored._learning_events(torch.tensor([[0.0, 1.0]])).tolist() == [[False, True]]
 
 
-def test_frozen_cifar_constructor_really_applies_group_roles(tmp_path, monkeypatch):
-    from experiments.stdp.run import adapt_models_source
-    source = BUNDLE / "runtime_CIFAR10DVS/experiments/accuracy/models.py"
-    path = tmp_path / "models.py"
-    path.write_text(adapt_models_source(source.read_text()))
-    package = types.ModuleType("_frozen_cifar_role_probe")
-    package.__path__ = [str(source.parent)]
-    monkeypatch.setitem(sys.modules, package.__name__, package)
-    spec = importlib.util.spec_from_file_location(package.__name__ + ".models", path)
-    module = importlib.util.module_from_spec(spec)
-    monkeypatch.setitem(sys.modules, spec.name, module)
-    spec.loader.exec_module(module)
-    cfg = json.loads((ROOT / "configs/final/compressed/CIFAR10DVS.json").read_text())
-    native = module.AccuracySNN("custom", "CIFAR10DVS", cfg, "exponential")
-    changed = dict(cfg, stdp_mode="lut", stdp_input_encoding="bernoulli_trace",
-                   hybrid_stdp_granularity="group")
-    grouped = module.AccuracySNN("custom", "CIFAR10DVS", changed, "exponential")
-    grouped.load_state_dict(native.state_dict(), strict=True)
-    old, new = native.hidden_layers['hidden1'], grouped.hidden_layers['hidden1']
-    assert old.hybrid_stdp_granularity == "neuron"
-    assert new.hybrid_stdp_granularity == "group"
-    assert int(old.stdp_neuron_mask.sum()) == int(new.stdp_neuron_mask.sum()) == 48
-    blocks = new.stdp_neuron_mask.reshape(48, 16)
-    assert torch.equal(blocks.any(1), blocks.all(1))
-    assert blocks.all(1).nonzero().flatten().tolist() == [0, 16, 32]
-    x = torch.rand(8, 3, old.in_features)
-    old.eval()
-    new.eval()
-    assert torch.equal(old(x), new(x))
 
 
-def test_spatial_transfer_preserves_coarse_contributions_and_parameter_budget(tmp_path, monkeypatch):
-    from experiments.stdp.run import adapt_models_source, spatial_student_transfer
-    source = BUNDLE / "runtime_CIFAR10DVS/experiments/accuracy/models.py"
-    path = tmp_path / 'spatial_models.py'
-    path.write_text(adapt_models_source(source.read_text()))
-    package = types.ModuleType('_spatial_transfer_probe')
-    package.__path__ = [str(source.parent)]
-    monkeypatch.setitem(sys.modules, package.__name__, package)
-    spec = importlib.util.spec_from_file_location(package.__name__+'.models', path)
-    module = importlib.util.module_from_spec(spec)
-    monkeypatch.setitem(sys.modules, spec.name, module)
-    spec.loader.exec_module(module)
-    cfg = json.loads((ROOT / 'configs/final/compressed/CIFAR10DVS.json').read_text())
-    native = module.AccuracySNN('custom', 'CIFAR10DVS', cfg, 'exponential')
-    changed = copy.deepcopy(cfg)
-    changed.update(custom_channels=[32,64,128,256,448], hidden_widths=[256],
-                   stdp_mode='lut', stdp_input_encoding='bernoulli_trace', hybrid_stdp_granularity='group')
-    changed['dataset_profiles']['CIFAR10DVS']['pool_size'] = 4
-    target = module.AccuracySNN('custom', 'CIFAR10DVS', changed, 'exponential')
-    state = copy.deepcopy(native.state_dict())
-    report = spatial_student_transfer(target, state)
-    assert sum(p.numel() for p in target.parameters()) == 4679375
-    assert int(target.hidden_layers['hidden1'].stdp_neuron_mask.sum()) == 16
-    assert all(torch.equal(v,native.state_dict()[k]) for k,v in state.items())
-    channels, rows = report['channel_indices'], report['hidden_indices']
-    fine = torch.rand(3,512,4,4)
-    coarse = torch.nn.functional.avg_pool2d(fine,2)
-    source_weight = state['hidden_layers.hidden1.weight'][rows].reshape(256,512,2,2)[:,channels].flatten(1)
-    mass = state['hidden_layers.hidden1.weight'][rows].sum(1)/source_weight.sum(1)
-    expected = (coarse[:,channels].flatten(1) @ source_weight.T)*mass
-    actual = fine[:,channels].flatten(1) @ target.hidden_layers['hidden1'].weight.T
-    assert torch.allclose(actual,expected,rtol=2e-6,atol=2e-6)
-    assert torch.allclose(target.hidden_layers['hidden1'].weight.sum(1),state['hidden_layers.hidden1.weight'][rows].sum(1))
-    assert target.hidden_layers['hidden1'].weight.min() >= 0
 
 
 def test_train_head_fit_keeps_nonnegative_physical_weights_and_detached_features():
-    from experiments.stdp.run import fit_nonnegative_classifier
+    from experiments.stdp.head_fit import fit_nonnegative_classifier
     generator = torch.Generator().manual_seed(123)
     features = torch.rand(160,6,generator=generator,requires_grad=True)
     signed = torch.randn(3,6,generator=generator)
@@ -395,12 +332,12 @@ def test_encoding_is_explicit_mean_preserving_paired_and_passes_bp():
 
 
 @pytest.mark.parametrize("runtime,rule,extras", [
-    ("runtime_primary", "stdp", {}),
-    ("runtime_primary", "bp", {}),
-    ("runtime_CIFAR10DVS", "hybrid", {"competition_size": 4, "hybrid_stdp_period": 2, "winner_tiebreak": "margin"}),
-    ("runtime_DVSGesture", "hybrid", {"competition_size": 2, "hybrid_stdp_period": 2, "hybrid_stdp_granularity": "group", "winner_tiebreak": "margin"}),
+    ("MNIST", "stdp", {}),
+    ("MNIST", "bp", {}),
+    ("CIFAR10DVS", "hybrid", {"competition_size": 4, "hybrid_stdp_period": 2, "winner_tiebreak": "margin"}),
+    ("DVSGesture", "hybrid", {"competition_size": 2, "hybrid_stdp_period": 2, "hybrid_stdp_granularity": "group", "winner_tiebreak": "margin"}),
 ])
-def test_legacy_frozen_source_update_forward_gradient_and_checkpoint_parity(runtime, rule, extras):
+def test_final_frozen_source_update_forward_gradient_and_checkpoint_parity(runtime, rule, extras):
     spec = importlib.util.spec_from_file_location("snn._frozen_wta", BUNDLE / runtime / "snn/wta.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -445,12 +382,3 @@ def test_add_clip_bounds_and_float_learning_smaller_than_quantization_lsb():
     assert 0 < h.stdp_statistics["actual_delta_abs_max"] < float(h.weight[0].max()/15)
 
 
-def test_historical_recovery_rate_uses_frozen_optimizer_contract():
-    from experiments.stdp.run import compression_rate
-    # Historical cfg/profile lr is 1e-4, but the actual recovery optimizer used
-    # 3e-4. This prevents a misleading inherited config from changing the screen.
-    run = BUNDLE / "conditions/CIFAR10DVS/compression_runtime/run.py"
-    rate, source = compression_rate("CIFAR10DVS", {"input_profile": {"lr": 1e-4}}, run)
-    assert rate == 3e-4 and source.endswith(":RATES")
-    rate, source = compression_rate("MNIST", {"backbone_learning_rate": 2e-4}, run)
-    assert rate == 2e-4 and source == "provenance.backbone_learning_rate"

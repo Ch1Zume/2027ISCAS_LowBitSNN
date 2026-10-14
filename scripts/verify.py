@@ -1,4 +1,4 @@
-"""Verify retained file hashes, optionally load all 12 final model conditions on CPU."""
+"""Verify retained file hashes, optionally load the four final model conditions on CPU."""
 import argparse
 import json
 import subprocess
