@@ -167,28 +167,3 @@ python experiments/power/export_stimuli.py --out results/activity --precision ui
 Outputs include activity by layer/sample/timestep, figures, and N-MNIST hidden2 weight codes and input sequences.
 Add `--datasets NMNIST` to evaluate only the primary baseline; the summary report requires all four datasets.
 See the [activity contract](experiments/power/USAGE.txt): these are software activity and SOP counts, not measured silicon power or physical RST counts.
-
-## 8. Final-release reproduction scope
-
-Only `lut_final` is retained: the four final checkpoints, their frozen implementations and the required CIFAR calibration inputs.
-The supported entry points reproduce full TEST accuracy, activity statistics and circuit stimuli.
-Historical compression, teacher-dependent retraining and reset recovery training launchers have been removed; their source remains available in Git history.
-The underlying SNN learning rules and final model implementations are unchanged.
-
-## 9. Tests and repository layout
-
-```bash
-python -m pytest -q test experiments/power/test_activity.py
-```
-
-| Path | Purpose | Git |
-|---|---|---|
-| `snn/`, `experiments/`, `scripts/`, `test/` | Algorithms, experiment drivers, utilities and tests | Tracked |
-| `benchmarks/` | Frozen implementations of the four final models | Tracked |
-| `configs/`, `environment.yml` | Configurations, splits, manifests and environment definition | Tracked |
-| `checkpoints/`, `artifacts/` | Separately uploaded weights and archives | Ignored |
-| `datasets*/` | Raw downloads and generated frames | Ignored |
-| `results/`, `outputs/`, `runs/`, `logs/` | Experiment records, caches, figures and outputs | Ignored |
-
-`.gitignore` also excludes common model, array, log, image and archive formats, installed environments and editor caches.
-Do not force-add generated experiment artifacts. Fixed splits and minimal reference scores are required reproduction inputs and remain in Git.
